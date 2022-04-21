@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import {Container, Col, Form, Button} from 'react-bootstrap'
+import {Container, Col, Form, Button, Card, CardColumns} from 'react-bootstrap'
 import { searchGames } from '../utils/API'
+import SingleDeal from './SingleDeal'
+import { Link } from 'react-router-dom';
 
 const Home = () => {
     const [searchedGames, setSearchedGames] = useState([]);
@@ -27,13 +29,22 @@ const Home = () => {
             console.log(items)
 
             const gameData = items.map((game) => ({
-                gameID: game.id
+                gameID: game.gameID,
+                cheapestDealID: game.cheapestDealID,
+                name: game.external,
+                price: game.cheapest,
+                picture: game.thumb
             }))
+            console.log(gameData[0])
             setSearchedGames(gameData)
             setSearchInput('');
         } catch (err){
             console.error(err)
         }
+    }
+
+    const handlePageChange = (gameID) => {
+        return <SingleDeal />
     }
 
     return (
@@ -54,6 +65,26 @@ const Home = () => {
                     </Col>
                 </Form.Row>
             </Form>
+        </Container>
+
+        <Container>
+            <CardColumns>
+                {searchedGames.map((game) => {
+                    return (
+                        <Card key={game.gameID} border='dark'>
+                            {game.picture ? (
+                                <Card.Img src={game.picture} />
+                            ) : null}
+                            <Card.Body>
+                                <Card.Title>{game.name}</Card.Title>
+                                <p className='small'>Price: {game.price}</p>
+                                <button value={game.gameID} onClick={() => handlePageChange(game.gameID)} >View This Deal</button>
+                            </Card.Body>
+                            )
+                        </Card>
+                    )
+                })}
+            </CardColumns>
         </Container>
         </>
     )

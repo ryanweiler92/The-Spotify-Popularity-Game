@@ -3,6 +3,7 @@ import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@ap
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home'
+import SingleDeal from './pages/SingleDeal'
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -28,7 +29,11 @@ function App() {
   <ApolloProvider client={client}>
     <Router>
       <>
-      <Home></Home>
+      <Home />
+      <Switch>
+        
+        <Route exact path="/deal" component={SingleDeal} />
+      </Switch>
       </>
     </Router>
   </ApolloProvider>
