@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import {useLocation} from "react-router-dom"
 import {Container, Col, Form, Button, Card, CardColumns} from 'react-bootstrap'
 import { getDeal } from '../utils/API'
 
-const SingleDeal = (gameID) => {
+const SingleDeal = (props) => {
 
-    const searchDeal = async (event) => {
-        event.preventDefault();
+    let data = useLocation();
+    const dealID = data.state
+    console.log(dealID)
+
+    const [searchedDeal, setSearchedDeal] = useState([])
+
+    useEffect(async () => {
 
         try {
-            const response = await getDeal(gameID)
+            const response = await getDeal(dealID)
 
             if(!response.ok) {
                 throw new Error('something went wrong!')
@@ -25,29 +31,31 @@ const SingleDeal = (gameID) => {
                 metacriticScore: deal.metacriticScore,
                 picture: deal.thumb,
                 gameID: deal.gameID
-            }))
-            console.log(dealData)
+            }));
+             setSearchedDeal(dealData)
         } catch (err){
             console.error(err)
         }
-    }
+    });
+
+
 
     return (
         <>
         <Container>
-            {/* <CardColumns>
-                <Card key={gameID} border='dark'>
-                    {deal.picture ? (
-                        <Card.Img src={picture} />
+            <CardColumns>
+                <Card key={searchedDeal.gameID} border='dark'>
+                    {searchedDeal.picture ? (
+                        <Card.Img src={searchedDeal.picture} />
                     ) : null}
                     <Card.Body>
-                        <Card.Title>{dealData.name}</Card.Title>
-                        <p>Retail Price: {dealData.retailPrice}  Sale Price: {deal.salePrice}</p>
-                        <p>Metacritic Score: {dealData.metacriticScore}</p>
+                        <Card.Title>{searchedDeal.name}</Card.Title>
+                        <p>Retail Price: {searchedDeal.retailPrice}  Sale Price: {searchedDeal.salePrice}</p>
+                        <p>Metacritic Score: {searchedDeal.metacriticScore}</p>
                     </Card.Body>
                     
                 </Card>
-            </CardColumns> */}
+            </CardColumns>
         </Container>
         </>
     )

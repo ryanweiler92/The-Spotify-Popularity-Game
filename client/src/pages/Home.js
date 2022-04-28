@@ -9,6 +9,13 @@ const Home = () => {
 
     const [searchInput, setSearchInput] = useState('');
 
+    const [page, setPage] = useState('');
+    
+    const handlePageChange = (gameID) => {
+        setPage(gameID)
+    }
+
+
     const handleFormSubmit = async (event) => {
         event.preventDefault();
 
@@ -18,7 +25,6 @@ const Home = () => {
 
         try {
             const response = await searchGames(searchInput)
-            console.log(searchInput)
 
             if(!response.ok) {
                 throw new Error('something went wrong!')
@@ -35,16 +41,11 @@ const Home = () => {
                 price: game.cheapest,
                 picture: game.thumb
             }))
-            console.log(gameData[0])
             setSearchedGames(gameData)
             setSearchInput('');
         } catch (err){
             console.error(err)
         }
-    }
-
-    const handlePageChange = (gameID) => {
-        return <SingleDeal />
     }
 
     return (
@@ -78,7 +79,13 @@ const Home = () => {
                             <Card.Body>
                                 <Card.Title>{game.name}</Card.Title>
                                 <p className='small'>Price: {game.price}</p>
-                                <button value={game.gameID} onClick={() => handlePageChange(game.gameID)} >View This Deal</button>
+                                <Link to={{
+                                    pathname: "/deal", 
+                                    state: {id: game.cheapestDealID,
+                                            }
+                                    }}>
+                                    <button value={game.gameID} onClick={() => handlePageChange(game.gameID)} >View This Deal</button>
+                                </Link>
                             </Card.Body>
                             )
                         </Card>
@@ -86,6 +93,9 @@ const Home = () => {
                 })}
             </CardColumns>
         </Container>
+        <div>
+            <SingleDeal />
+        </div>
         </>
     )
 

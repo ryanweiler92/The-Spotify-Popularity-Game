@@ -29,9 +29,8 @@ function App() {
   <ApolloProvider client={client}>
     <Router>
       <>
-      <Home />
       <Switch>
-        
+        <Route exact path="/" component={Home} />
         <Route exact path="/deal" component={SingleDeal} />
       </Switch>
       </>
