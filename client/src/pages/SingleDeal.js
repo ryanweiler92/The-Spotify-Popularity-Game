@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {useLocation} from "react-router-dom"
 import {Container, Col, Form, Button, Card, CardColumns} from 'react-bootstrap'
-import { getDeal } from '../utils/API'
+import  SingleDealCard  from '../components/SingleDealCard/SingleDealCard.js'
 
 const SingleDeal = (props) => {
     //get the passed dealID from home which was passed as state
@@ -59,6 +59,21 @@ const SingleDeal = (props) => {
                     <Button onClick={myFunction}>Click</Button>
                 </Card>
             </CardColumns>
+        </Container>
+
+        <Container>
+            <SingleDealCard 
+            gameID={deal.gameInfo?.gameID}
+            picture={deal.gameInfo?.thumb}
+            name={deal.gameInfo?.name}
+            retailPrice={deal.gameInfo?.retailPrice}
+            salePrice={deal.gameInfo?.salePrice}
+            metacritic={deal.gameInfo?.metacriticScore}
+            steamRatingCount={deal.gameInfo?.steamRatingCount}
+            steamRatingPercent={deal.gameInfo?.steamRatingPercent}
+            steamRatingText={deal.gameInfo?.steamRatingText}
+            storeID={deal.gameInfo?.storeID}
+            />
         </Container>
         </>
     )
