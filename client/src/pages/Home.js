@@ -94,9 +94,6 @@ const Home = () => {
                 })}
             </CardColumns>
         </Container>
-        <div>
-            <SingleDeal />
-        </div>
         </>
     )
 

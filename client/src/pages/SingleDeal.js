@@ -4,67 +4,59 @@ import {Container, Col, Form, Button, Card, CardColumns} from 'react-bootstrap'
 import { getDeal } from '../utils/API'
 
 const SingleDeal = (props) => {
-
+    //get the passed dealID from home which was passed as state
     let data = useLocation();
 
+    console.log(data.state)
+    //state for setting the dealID passed from home page
     const [dealID, setDealID] = useState("")
-
+    console.log("UHH " + dealID)
+    //state for setting the deal data from the fetch call
     const [deal, setDeal] = useState([]);
 
+    //set state of deal id on load, second arguement of [] makes effect run once
     useEffect(() => {
-        setDealID(data.state)
-    })
-
-    const searchDeal = async (event, dealID) => {
-        event.preventDefault();
-
-        if (!data.state) {
-            return false;
+        if(!data.state){
+            console.log('wrong')
+        } else {
+        setDealID(data.state.id)
         }
+    }, [])
 
-        try {
-            const response = await getDeal(dealID.id)
 
-            if(!response.ok) {
-                throw new Error('something went wrong!')
+    useEffect(() => {
+        fetch (`https://www.cheapshark.com/api/1.0/deals?id=${dealID}`)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(
+                    `This is an HTTP error: The status is ${response.status}`
+                );
             }
+            return response.json()
+        })
+        .then((dealData) => setDeal(dealData))
+    }, [dealID]);
 
-            const items = await response.json();
 
-            console.log(items)
-
-            const dealData = {
-                name: items.gameInfo.name,
-                salePrice: items.gameInfo.salePrice,
-                retailPrice: items.gameInfo.retailPrice,
-                metacriticScore: items.gameInfo.metacriticScore,
-                picture: items.gameInfo.thumb,
-                gameID: items.gameInfo.gameID
-            }
-             setDeal(dealData)
-        } catch (err){
-            console.error(err)
-        }
-    };
-
-    console.log(deal)
-
+    const myFunction = () => {
+        console.log(deal)
+        console.log(deal.gameInfo.name)
+    }
 
     return (
         <>
         <Container>
             <CardColumns>
-                <Card key={deal.gameID} border='dark'>
-                    {deal.picture ? (
-                        <Card.Img src={deal.picture} />
+                <Card key={deal.gameInfo?.gameID} border='dark'>
+                    {deal.gameInfo?.thumb ? (
+                        <Card.Img src={deal.gameInfo?.thumb} />
                     ) : null}
                     <Card.Body>
-                        <Card.Title>{deal.name}</Card.Title>
-                        <p>Retail Price: {deal.retailPrice}  Sale Price: {deal.salePrice}</p>
-                        <p>Metacritic Score: {deal.metacriticScore}</p>
+                        <Card.Title>{deal.gameInfo?.name}</Card.Title>
+                        <p>Retail Price: {deal.gameInfo?.retailPrice}  Sale Price: {deal.gameInfo?.salePrice}</p>
+                        <p>Metacritic Score: {deal.gameInfo?.metacriticScore}</p>
                     </Card.Body>
-                    <Button onClick={(e) => searchDeal(e, dealID)}>Click</Button>
-                    
+                    <Button onClick={myFunction}>Click</Button>
                 </Card>
             </CardColumns>
         </Container>
