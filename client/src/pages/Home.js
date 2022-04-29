@@ -5,17 +5,16 @@ import SingleDeal from './SingleDeal'
 import { Link } from 'react-router-dom';
 
 const Home = () => {
+    
+    //state for game searched from form
     const [searchedGames, setSearchedGames] = useState([]);
 
+    //form search
     const [searchInput, setSearchInput] = useState('');
-
-    const [page, setPage] = useState('');
     
-    const handlePageChange = (gameID) => {
-        setPage(gameID)
-    }
 
 
+    //Getting the game data when the form submits
     const handleFormSubmit = async (event) => {
         event.preventDefault();
 
@@ -46,7 +45,9 @@ const Home = () => {
         } catch (err){
             console.error(err)
         }
-    }
+    };
+
+
 
     return (
         <>
@@ -84,7 +85,7 @@ const Home = () => {
                                     state: {id: game.cheapestDealID,
                                             }
                                     }}>
-                                    <button value={game.gameID} onClick={() => handlePageChange(game.gameID)} >View This Deal</button>
+                                    <button value={game.gameID}>View This Deal</button>
                                 </Link>
                             </Card.Body>
                             )

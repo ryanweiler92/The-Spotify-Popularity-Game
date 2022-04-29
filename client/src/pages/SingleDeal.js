@@ -6,15 +6,24 @@ import { getDeal } from '../utils/API'
 const SingleDeal = (props) => {
 
     let data = useLocation();
-    const dealID = data.state
-    console.log(dealID)
 
-    const [searchedDeal, setSearchedDeal] = useState([])
+    const [dealID, setDealID] = useState("")
 
-    useEffect(async () => {
+    const [deal, setDeal] = useState([]);
+
+    useEffect(() => {
+        setDealID(data.state)
+    })
+
+    const searchDeal = async (event, dealID) => {
+        event.preventDefault();
+
+        if (!data.state) {
+            return false;
+        }
 
         try {
-            const response = await getDeal(dealID)
+            const response = await getDeal(dealID.id)
 
             if(!response.ok) {
                 throw new Error('something went wrong!')
@@ -24,35 +33,37 @@ const SingleDeal = (props) => {
 
             console.log(items)
 
-            const dealData = items.map((deal) => ({
-                name: deal.name,
-                salePrice: deal.salePrice,
-                retailPrice: deal.retailPrice,
-                metacriticScore: deal.metacriticScore,
-                picture: deal.thumb,
-                gameID: deal.gameID
-            }));
-             setSearchedDeal(dealData)
+            const dealData = {
+                name: items.gameInfo.name,
+                salePrice: items.gameInfo.salePrice,
+                retailPrice: items.gameInfo.retailPrice,
+                metacriticScore: items.gameInfo.metacriticScore,
+                picture: items.gameInfo.thumb,
+                gameID: items.gameInfo.gameID
+            }
+             setDeal(dealData)
         } catch (err){
             console.error(err)
         }
-    });
+    };
 
+    console.log(deal)
 
 
     return (
         <>
         <Container>
             <CardColumns>
-                <Card key={searchedDeal.gameID} border='dark'>
-                    {searchedDeal.picture ? (
-                        <Card.Img src={searchedDeal.picture} />
+                <Card key={deal.gameID} border='dark'>
+                    {deal.picture ? (
+                        <Card.Img src={deal.picture} />
                     ) : null}
                     <Card.Body>
-                        <Card.Title>{searchedDeal.name}</Card.Title>
-                        <p>Retail Price: {searchedDeal.retailPrice}  Sale Price: {searchedDeal.salePrice}</p>
-                        <p>Metacritic Score: {searchedDeal.metacriticScore}</p>
+                        <Card.Title>{deal.name}</Card.Title>
+                        <p>Retail Price: {deal.retailPrice}  Sale Price: {deal.salePrice}</p>
+                        <p>Metacritic Score: {deal.metacriticScore}</p>
                     </Card.Body>
+                    <Button onClick={(e) => searchDeal(e, dealID)}>Click</Button>
                     
                 </Card>
             </CardColumns>
