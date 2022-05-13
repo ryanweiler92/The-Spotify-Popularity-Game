@@ -14,6 +14,7 @@ const Home = () => {
     const [token, setToken] = useState("");
     const [searchKey, setSearchKey] = useState("");
     const [artists, setArtists] = useState([]);
+    const [userData, setUserData] = useState([]);
 
     useEffect(() => {
     const hash = window.location.hash
@@ -48,7 +49,7 @@ const Home = () => {
         })
         console.log({data})
         setArtists(data.artists.items)
-    }
+    };
 
     const renderArtists = () => {
         return artists.map(artist => (
@@ -57,30 +58,72 @@ const Home = () => {
                 {artist.name}
             </div>
         ))
-    }
+    };
+
+    //search for user data based on who is logged in
+
+    useEffect(() => {
+    const searchMe = async () => {
+        const {data} = await axios.get("https://api.spotify.com/v1/me", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+      
+        console.log({data})
+    };
+    searchMe();
+    }, [token])
+
+
+    const searchMe2 = async () => {
+        const {data} = await axios.get("https://api.spotify.com/v1/me", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+      
+        console.log({data})
+    };
 
     //END SPOTIFY API STUFF
 
     return (
-        <>
-        <Container>
+        
+        <Container className="mx-auto mt-4">
         <Row>
               {!token ?
-                    <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login
-                        to Spotify</a>
-                    : <button onClick={logout}>Logout</button>}
+                    <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>
+                        <Button>Login to Spotify</Button>
+                        </a>
+                    : <Button onClick={logout}>Logout</Button>}
         </Row>
         <Row>
-        <form onSubmit={searchArtists}>
-            <input type="text" onChange={e => setSearchKey(e.target.value)}/>
-            <button type={"submit"}>Search</button>
-        </form>
+        <Button onClick={() => searchMe2()}>Search Me</Button>
+        </Row>
+        
+        
+        
+        
+        
+        
+        
+        {/* <Row>
+            <Col>
+                <form onSubmit={searchArtists}>
+                    <input type="text" onChange={e => setSearchKey(e.target.value)}/>
+                    <button type={"submit"}>Search</button>
+                </form>
+            </Col>
+            <Col>
+            <Button onClick={() => searchMe()}>Search Me</Button>
+            </Col>
         </Row>
         <Row>
         {renderArtists()}
-        </Row>
+        </Row> */}
         </Container>
-        </>
+        
     )
 
 }
