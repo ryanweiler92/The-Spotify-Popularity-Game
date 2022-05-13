@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {Container, Row, Col, Form, Button, Card, CardColumns} from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import UserData from '../components/UserData.js'
 
 const Home = () => {
 
@@ -14,6 +15,7 @@ const Home = () => {
     const [token, setToken] = useState("");
     const [searchKey, setSearchKey] = useState("");
     const [artists, setArtists] = useState([]);
+    //name, id, uri, image, folowers, href
     const [userData, setUserData] = useState([]);
 
     useEffect(() => {
@@ -61,7 +63,7 @@ const Home = () => {
     };
 
     //search for user data based on who is logged in
-
+    //Searches once the token state has set
     useEffect(() => {
     const searchMe = async () => {
         const {data} = await axios.get("https://api.spotify.com/v1/me", {
@@ -69,38 +71,39 @@ const Home = () => {
                 Authorization: `Bearer ${token}`
             }
         })
-      
-        console.log({data})
+        const gameData = {
+            name: data.display_name,
+            id: data.id,
+            uri: data.uri,
+            image: data.images[0].url,
+            followers: data.followers.total,
+            href: data.href
+        }
+        setUserData(gameData)  
     };
     searchMe();
     }, [token])
 
-
-    const searchMe2 = async () => {
-        const {data} = await axios.get("https://api.spotify.com/v1/me", {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-      
-        console.log({data})
-    };
-
     //END SPOTIFY API STUFF
+
+    const myFunction = () => {
+        console.log(userData)
+    }
 
     return (
         
         <Container className="mx-auto mt-4">
         <Row>
+            <Button onClick={myFunction} className="gradient-button">My Button</Button>
               {!token ?
                     <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>
-                        <Button>Login to Spotify</Button>
+                        <Button className="gradient-button">Login to Spotify</Button>
                         </a>
-                    : <Button onClick={logout}>Logout</Button>}
+                    : <Button onClick={logout} className="gradient-button">Logout</Button>}
         </Row>
-        <Row>
-        <Button onClick={() => searchMe2()}>Search Me</Button>
-        </Row>
+        <UserData userData={userData} />
+
+
         
         
         
