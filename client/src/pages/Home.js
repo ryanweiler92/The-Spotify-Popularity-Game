@@ -1,98 +1,84 @@
 import React, { useState, useEffect } from 'react';
-import {Container, Col, Form, Button, Card, CardColumns} from 'react-bootstrap'
-import { searchGames } from '../utils/API'
-import SingleDeal from './SingleDeal'
+import {Container, Row, Col, Form, Button, Card, CardColumns} from 'react-bootstrap'
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Home = () => {
-    
-    //state for game searched from form
-    const [searchedGames, setSearchedGames] = useState([]);
 
-    //form search
-    const [searchInput, setSearchInput] = useState('');
-    
+    //SPOTIFY API STUFF
+    const CLIENT_ID = "f268301c1b63456b81cf1b534073b905"
+    const REDIRECT_URI = "http://localhost:3000"
+    const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
+    const RESPONSE_TYPE = "token"
 
+    const [token, setToken] = useState("");
+    const [searchKey, setSearchKey] = useState("");
+    const [artists, setArtists] = useState([]);
 
-    //Getting the game data when the form submits
-    const handleFormSubmit = async (event) => {
-        event.preventDefault();
+    useEffect(() => {
+    const hash = window.location.hash
+    let token = window.localStorage.getItem("token")
 
-        if (!searchInput) {
-            return false;
-        }
+    if (!token && hash) {
+        token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
 
-        try {
-            const response = await searchGames(searchInput)
+        window.location.hash = ""
+        window.localStorage.setItem("token", token)
+    }
 
-            if(!response.ok) {
-                throw new Error('something went wrong!')
+    setToken(token)
+
+    }, [])
+
+    const logout = () => {
+    setToken("")
+    window.localStorage.removeItem("token")
+    }
+
+    const searchArtists = async (e) => {
+        e.preventDefault()
+        const {data} = await axios.get("https://api.spotify.com/v1/search", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            params: {
+                q: searchKey,
+                type: "artist"
             }
+        })
+        console.log({data})
+        setArtists(data.artists.items)
+    }
 
-            const  items  = await response.json();
+    const renderArtists = () => {
+        return artists.map(artist => (
+            <div key={artist.id}>
+                {artist.images.length ? <img width={"100%"} src={artist.images[0].url} alt=""/> : <div>No Image</div>}
+                {artist.name}
+            </div>
+        ))
+    }
 
-            console.log(items)
-
-            const gameData = items.map((game) => ({
-                gameID: game.gameID,
-                cheapestDealID: game.cheapestDealID,
-                name: game.external,
-                price: game.cheapest,
-                picture: game.thumb
-            }))
-            setSearchedGames(gameData)
-            setSearchInput('');
-        } catch (err){
-            console.error(err)
-        }
-    };
-
-
+    //END SPOTIFY API STUFF
 
     return (
         <>
         <Container>
-            <h1>Search for Games!</h1>
-            <Form onSubmit={handleFormSubmit}>
-                <Form.Row>
-                    <Col xs={12} md={8}>
-                        <Form.Control
-                         name='searchInput'
-                         value={searchInput}
-                         onChange={(e) => setSearchInput(e.target.value)}
-                         type='text'
-                         size='lg'
-                         placeholder='Search for a game'
-                        />
-                    </Col>
-                </Form.Row>
-            </Form>
-        </Container>
-
-        <Container>
-            <CardColumns>
-                {searchedGames.map((game) => {
-                    return (
-                        <Card key={game.gameID} border='dark'>
-                            {game.picture ? (
-                                <Card.Img src={game.picture} />
-                            ) : null}
-                            <Card.Body>
-                                <Card.Title>{game.name}</Card.Title>
-                                <p className='small'>Price: {game.price}</p>
-                                <Link to={{
-                                    pathname: "/deal", 
-                                    state: {id: game.cheapestDealID,
-                                            }
-                                    }}>
-                                    <button value={game.gameID}>View This Deal</button>
-                                </Link>
-                            </Card.Body>
-                            )
-                        </Card>
-                    )
-                })}
-            </CardColumns>
+        <Row>
+              {!token ?
+                    <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login
+                        to Spotify</a>
+                    : <button onClick={logout}>Logout</button>}
+        </Row>
+        <Row>
+        <form onSubmit={searchArtists}>
+            <input type="text" onChange={e => setSearchKey(e.target.value)}/>
+            <button type={"submit"}>Search</button>
+        </form>
+        </Row>
+        <Row>
+        {renderArtists()}
+        </Row>
         </Container>
         </>
     )
