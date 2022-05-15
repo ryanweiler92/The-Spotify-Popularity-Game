@@ -17,6 +17,7 @@ const Home = () => {
     const [artists, setArtists] = useState([]);
     //name, id, uri, image, folowers, href
     const [userData, setUserData] = useState([]);
+    const [topArtistData, setTopArtistData] =useState([]);
 
     useEffect(() => {
     const hash = window.location.hash
@@ -71,7 +72,7 @@ const Home = () => {
                 Authorization: `Bearer ${token}`
             }
         })
-        const gameData = {
+        const userData = {
             name: data.display_name,
             id: data.id,
             uri: data.uri,
@@ -79,15 +80,36 @@ const Home = () => {
             followers: data.followers.total,
             href: data.href
         }
-        setUserData(gameData)  
+        setUserData(userData)  
     };
     searchMe();
     }, [token])
+
+    //get users top artists
+    useEffect(() => {
+        const searchMeTopArtists = async () => {
+            const {data} = await axios.get("https://api.spotify.com/v1/me/top/artists?limit=4", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            const topArtistData = data.items.map((artist) => ({
+                name: artist.name,
+                images: artist.images,
+                genres: artist.genres,
+                followers: artist.followers.total
+            }))
+            console.log(topArtistData)
+            setTopArtistData(topArtistData)
+        };
+        searchMeTopArtists();
+        }, [token])
 
     //END SPOTIFY API STUFF
 
     const myFunction = () => {
         console.log(userData)
+        console.log(topArtistData)
     }
 
     return (
@@ -101,7 +123,7 @@ const Home = () => {
                         </a>
                     : <Button onClick={logout} className="gradient-button">Logout</Button>}
         </Row>
-        <UserData userData={userData} />
+        <UserData userData={userData} topArtistData={topArtistData} />
 
 
         
