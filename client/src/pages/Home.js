@@ -17,7 +17,7 @@ const Home = () => {
     const [artists, setArtists] = useState([]);
     //name, id, uri, image, folowers, href
     const [userData, setUserData] = useState([]);
-    const [topArtistData, setTopArtistData] =useState([]);
+    const [topArtistData, setTopArtistData] = useState([]);
     const [playlistData, setPlaylistData] = useState([]);
 
     useEffect(() => {
@@ -40,29 +40,29 @@ const Home = () => {
     window.localStorage.removeItem("token")
     }
 
-    const searchArtists = async (e) => {
-        e.preventDefault()
-        const {data} = await axios.get("https://api.spotify.com/v1/search", {
-            headers: {
-                Authorization: `Bearer ${token}`
-            },
-            params: {
-                q: searchKey,
-                type: "artist"
-            }
-        })
-        console.log({data})
-        setArtists(data.artists.items)
-    };
+    // const searchArtists = async (e) => {
+    //     e.preventDefault()
+    //     const {data} = await axios.get("https://api.spotify.com/v1/search", {
+    //         headers: {
+    //             Authorization: `Bearer ${token}`
+    //         },
+    //         params: {
+    //             q: searchKey,
+    //             type: "artist"
+    //         }
+    //     })
+    //     console.log({data})
+    //     setArtists(data.artists.items)
+    // };
 
-    const renderArtists = () => {
-        return artists.map(artist => (
-            <div key={artist.id}>
-                {artist.images.length ? <img width={"100%"} src={artist.images[0].url} alt=""/> : <div>No Image</div>}
-                {artist.name}
-            </div>
-        ))
-    };
+    // const renderArtists = () => {
+    //     return artists.map(artist => (
+    //         <div key={artist.id}>
+    //             {artist.images.length ? <img width={"100%"} src={artist.images[0].url} alt=""/> : <div>No Image</div>}
+    //             {artist.name}
+    //         </div>
+    //     ))
+    // };
 
     //search for user data based on who is logged in
     //Searches once the token state has set
@@ -98,9 +98,10 @@ const Home = () => {
                 name: artist.name,
                 images: artist.images,
                 genres: artist.genres,
-                followers: artist.followers.total
+                followers: artist.followers.total,
+                id: artist.id
             }))
-            console.log(topArtistData)
+            console.log(data)
             setTopArtistData(topArtistData)
         };
         searchMeTopArtists();
@@ -144,7 +145,7 @@ const Home = () => {
                         </a>
                     : <Button onClick={logout} className="gradient-button">Logout</Button>}
         </Row>
-        <UserData userData={userData} topArtistData={topArtistData} playlistData={playlistData} />
+        <UserData userData={userData} topArtistData={topArtistData} playlistData={playlistData} myToken={token} />
 
 
         

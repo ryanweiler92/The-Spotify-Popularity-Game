@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {Container, Row, Col, Form, Button, Card, CardColumns} from 'react-bootstrap'
+import axios from 'axios';
 
 
-const UserData = ( {userData, topArtistData, playlistData} ) => {
+const UserData = ( {userData, topArtistData, playlistData, myToken} ) => {
+
+    let token = myToken;
 
     let { followers: followers, href: href, id: id, image: image,
           name: name, uri: uri } = userData
@@ -10,11 +13,26 @@ const UserData = ( {userData, topArtistData, playlistData} ) => {
     let artists = topArtistData
 
     let playlists = playlistData
-    
+
+    let [artistID, setArtistID] = useState("")
+
+    //find top tracks for individual artist
+    useEffect(() => {
+        const searchArtistsTopTracks = async () => {
+            console.log(artistID)
+            const {data} = await axios.get(`https://api.spotify.com/v1/artists/${artistID}/top-tracks`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            console.log({data})
+        }
+    searchArtistsTopTracks();
+    }, [artistID])
+        
     const myFunction = () => {
-        console.log(artists)
-        console.log(topArtistData)
-        console.log(playlists)
+        console.log(myToken)
+        console.log(artistID)
     }
 
     return (
@@ -44,7 +62,7 @@ const UserData = ( {userData, topArtistData, playlistData} ) => {
             <Row>
                 {artists?.map((artist) =>{
                     return (
-                        <Col className="col-md-4 col-lg-3 col-xl-3 mt-4">
+                        <Col key={artist.id} className="col-md-4 col-lg-3 col-xl-3 mt-4">
                             <Card className="h-100 top-artist-cards">
                                 <Row className="m-0">
                                     <Col className="image-box m-0 p-0">
@@ -66,6 +84,11 @@ const UserData = ( {userData, topArtistData, playlistData} ) => {
                                                 {artist.genres[0]}
                                             </li>
                                         </ul>
+                                    </Row>
+                                    <Row className="centered-row mt-3">
+                                        <Button className="gradient-button" value={artist.id} onClick={e => setArtistID(e.target.value)}>
+                                            View Top Tracks
+                                            </Button>
                                     </Row>
                                 </Card.Body>
                             </Card>
