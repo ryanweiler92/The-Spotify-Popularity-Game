@@ -89,6 +89,64 @@ body {
   margin-bottom: 2rem;
 }
 
-.single-top-artist-card img {
-  opacity: .8;
+.image-box{
+  overflow: hidden;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.50);
+  border-radius: 5px;
 }
+
+.top-artist-cards:hover img {
+  opacity: 0.7;
+  -webkit-transform:scale(1.45);
+  -moz-transform:scale(1.45);
+  -ms-transform:scale(1.45);
+  -o-transform:scale(1.45);
+  transform:scale(1.45);
+}
+
+.top-artist-cards:hover{
+  color: #2AF598;
+  box-shadow: 0px 15px 26px rgba(250, 250, 250, 0.8);
+  -webkit-transition: all 0.2s ease-in;
+  -moz-transition: all 0.2s ease-in;
+  -ms-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+  transform: scale(1.15);
+
+}
+
+.my-playlists-card{
+  background: #222;
+  border-image: linear-gradient(45deg, #2AF598, #009EFD) 1;
+  border-style: solid;
+  border-width: 4px;
+  color: rgba(250, 250, 250, 0.8);
+}
+
+.playlist-card-item{
+  font-size: 16px;
+}
+
+.my-playlists-card:hover img {
+  opacity: 0.7;
+  -webkit-transform:scale(1.45);
+  -moz-transform:scale(1.45);
+  -ms-transform:scale(1.45);
+  -o-transform:scale(1.45);
+  transform:scale(1.45);
+}
+
+.my-playlists-card:hover{
+  color: #2AF598;
+  box-shadow: 0px 15px 26px rgba(250, 250, 250, 0.8);
+  -webkit-transition: all 0.2s ease-in;
+  -moz-transition: all 0.2s ease-in;
+  -ms-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+  transform: scale(1.15);
+
+}
+
+

@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import {Container, Row, Col, Form, Button, Card, CardColumns} from 'react-bootstrap'
 
 
-const UserData = ( {userData, topArtistData} ) => {
+const UserData = ( {userData, topArtistData, playlistData} ) => {
 
     let { followers: followers, href: href, id: id, image: image,
           name: name, uri: uri } = userData
 
     let artists = topArtistData
+
+    let playlists = playlistData
     
     const myFunction = () => {
         console.log(artists)
         console.log(topArtistData)
+        console.log(playlists)
     }
 
     return (
@@ -43,7 +46,11 @@ const UserData = ( {userData, topArtistData} ) => {
                     return (
                         <Col className="col-md-4 col-lg-3 col-xl-3 mt-4">
                             <Card className="h-100 top-artist-cards">
-                                <img src={artist.images[0].url} alt={artist.name}/>
+                                <Row className="m-0">
+                                    <Col className="image-box m-0 p-0">
+                                        <img src={artist.images[0].url} alt={artist.name} className="img-fluid"/>
+                                    </Col>
+                                </Row>
                                 <Card.Body>
                                     <Row>
                                         <Col className="col-lg-12 mx-auto">
@@ -60,7 +67,41 @@ const UserData = ( {userData, topArtistData} ) => {
                                             </li>
                                         </ul>
                                     </Row>
-
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    )
+                })}
+            </Row>
+            <Row className="centered-row mt-5">
+                <h2>Your Playlists</h2>
+            </Row>
+            <Row className="centered-row align-items-stretch">
+                {playlists?.map((playlist) => {
+                    return (
+                        <Col className = "col-sm-5 col-md-3 col-lg-2, col-xl-2 mt-4">
+                            <Card className="h-100 my-playlists-card">
+                                <Row className="m-0">
+                                    <Col className="image-box m-0 p-0">
+                                        <img src={playlist.images[0].url} alt={playlist.name} className='img-fluid' />
+                                    </Col>
+                                </Row>
+                                <Card.Body>
+                                    <Row>
+                                        <Col className="col-lg-12 mx-auto">
+                                            <p className="text-center">{playlist.name}</p>
+                                        </Col>
+                                    </Row>
+                                    <Row className="centered-row">
+                                        <ul className="list-group list-group-flush">
+                                            <li className="list-group-item text-center playlist-card-item">
+                                                Owner: {playlist.owner}
+                                            </li>
+                                            <li className="list-group-item text-center text-capitalize playlist-card-item">
+                                                {playlist.numberSongs} Songs
+                                            </li>
+                                        </ul>
+                                    </Row>
                                 </Card.Body>
                             </Card>
                         </Col>
