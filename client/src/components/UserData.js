@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import {Container, Row, Col, Form, Button, Card, CardColumns} from 'react-bootstrap'
+import {Container, Row, Col, Form, Button, Card, CardColumns, Modal} from 'react-bootstrap'
 import axios from 'axios';
+import TopTracksModal from './TopTracksModal'
 
 
 const UserData = ( {userData, topArtistData, playlistData, myToken} ) => {
@@ -14,25 +15,44 @@ const UserData = ( {userData, topArtistData, playlistData, myToken} ) => {
 
     let playlists = playlistData
 
-    let [artistID, setArtistID] = useState("")
+    let [artistID, setArtistID] = useState("");
+
+    let [artistName, setArtistName] =useState("");
+
+    let [topTracks, setTopTracks] = useState([])
 
     //find top tracks for individual artist
     useEffect(() => {
         const searchArtistsTopTracks = async () => {
             console.log(artistID)
-            const {data} = await axios.get(`https://api.spotify.com/v1/artists/${artistID}/top-tracks`, {
+            const {data} = await axios.get(`https://api.spotify.com/v1/artists/${artistID}/top-tracks?country=US`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             })
             console.log({data})
+            const topTracksData = data.tracks?.map((track) => ({
+                name: track.name,
+                images: track.album.images,
+                album: track.album.name,
+                id: track.id
+            }))
+            setTopTracks(topTracksData)
+            setShowModal(true)
         }
     searchArtistsTopTracks();
     }, [artistID])
+
+    // useEffect(() => {
+    //     setShowModal(true)
+    // }, [topTracks])
+
+    const [showModal, setShowModal] = useState(false);
         
     const myFunction = () => {
         console.log(myToken)
         console.log(artistID)
+        console.log(topTracks)
     }
 
     return (
@@ -135,6 +155,14 @@ const UserData = ( {userData, topArtistData, playlistData, myToken} ) => {
                 <Button onClick={myFunction}>Button Man</Button>
             </Row>
         </div>
+        <Modal
+        size="lg"
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        className="top-tracks-modal"
+        >
+        <TopTracksModal topTracks={topTracks}/>
+        </Modal>
         </Container>
 
     )
