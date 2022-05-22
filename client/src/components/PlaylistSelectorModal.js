@@ -2,16 +2,15 @@ import React, { useState, useEffect } from 'react';
 import {Container, Nav, Navbar, Modal, Tab, Button, Row, Col} from 'react-bootstrap'
 import background from '../assets/images/concert.jpg'
 
-const PlaylistSelectorModal = ({playlistData}) => {
+const PlaylistSelectorModal = ({playlistData, setPlaylistID, setRunPlaylistSearch}) => {
 
     //playlists with 20 or more tracks
     const qualifiedPlaylists = playlistData.filter(playlist => playlist.numberSongs >= 20)
 
-    // const modalStyle = {
-    //     backgroundImage: "url(" + background + ")",
-    //     backgroundSize: "cover",
-    //     backgroundPosition: "center"
-    // }
+    const playlistSelectHandler = (id) =>{
+        setPlaylistID(id)
+        setRunPlaylistSearch(true)
+    }
 
     const myFunction = () => {
         console.log(playlistData)
@@ -23,12 +22,11 @@ const PlaylistSelectorModal = ({playlistData}) => {
             <Modal.Header className="d-flex align-items-center justify-content-center text-center dark-modal" closeButton>
                 <Modal.Title className="d-flex align-items-center justify-content-center text-center">
                     <h2>Select a Playlist</h2>
-                    <Button onClick={myFunction}>ButtonMan</Button>
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body className="dark-modal m-auto">
                 <Row>
-                <p>Please select one of your playlists to use in the game. Only playlists
+                <p id="playlist-selector-instructions">Please select one of your playlists to use in the game. Only playlists
                     with 20 or more tracks qualify.
                 </p>
                 </Row>
@@ -47,8 +45,10 @@ const PlaylistSelectorModal = ({playlistData}) => {
                             <p className="text-center">Songs: {playlist.numberSongs}</p>
                             </Col>
                             <Col>
-                            <Button value={playlist.id}>
-                                Select playlist
+                            <Button 
+                            value={playlist.id} 
+                            onClick={(e) => setPlaylistID(e.target.value)}>
+                                Select Playlist
                             </Button>
                             </Col>
                         </Row> 

@@ -15,7 +15,12 @@ const Game = () => {
        //name, id, uri, image, folowers, href
        const [userData, setUserData] = useState([]);
        const [playlistData, setPlaylistData] = useState([]);
+       const [playlistID, setPlaylistID] =useState("");
+       const [playlistSelection, setPlaylistSelection] = useState([]);
    
+       const [showPlaylistModal, setShowPlaylistModal] = useState(false);
+
+       //get spotify token
        useEffect(() => {
        const hash = window.location.hash
        let token = window.localStorage.getItem("token")
@@ -79,12 +84,34 @@ const Game = () => {
             searchMeTopPlaylists();
             }, [token])
 
+            useEffect(() => {
+                const searchPlaylistByID = async () => {
+                    const {data} = await axios.get(`https://api.spotify.com/v1/playlists/${playlistID}`, {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    })
+                    console.log(data)
+                    // const playlistData = data.items.map((playlist) => ({
+                    //     name: playlist.name,
+                    //     images: playlist.images,
+                    //     numberSongs: playlist.tracks.total,
+                    //     owner: playlist.owner.display_name,
+                    //     id: playlist.id
+                    // }))
+                    
+                    setShowPlaylistModal(false)
+                };
+                searchPlaylistByID();
+                }, [playlistID])        
+
         const myFunction = () =>{
-            console.log(userData)
-            console.log(playlistData)
+            console.log(playlistID)
         };
 
-        const [showPlaylistModal, setShowPlaylistModal] = useState(false);
+        
+
+        
 
        return (
            <>
@@ -95,8 +122,11 @@ const Game = () => {
             onHide={() => setShowPlaylistModal(false)}
             className="top-tracks-modal"
             >
-            <PlaylistSelectorModal playlistData={playlistData}/>
-        </Modal>
+                <PlaylistSelectorModal 
+                    playlistData={playlistData} 
+                    setPlaylistID={setPlaylistID} 
+                    setShowPlaylistModal={setShowPlaylistModal}/>
+            </Modal>
            </>
        )
 }

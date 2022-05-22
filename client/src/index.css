@@ -245,3 +245,9 @@ iframe{
   75% { transform: rotate(-5deg); }
   100% { transform: rotate(0deg); }
 }
+
+#playlist-selector-instructions{
+  font-size: 18px !important;
+  margin: 10px;
+  text-align: center;
+}
