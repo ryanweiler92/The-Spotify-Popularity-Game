@@ -195,3 +195,53 @@ iframe{
   border-radius: 12px;
 }
 
+.dark-modal{
+  background-color: #222
+}
+
+.playlist-selector-img{
+  height: 80px;
+  width: 80px;
+}
+
+.playlist-selector-items{
+  background:var(--gradient) !important; 
+  width: 80%;
+  border-radius: 20px;
+  border: 2px solid white;
+  margin-top: 20px !important;
+  color:rgba(250, 250, 250, 0.8);
+  font-size: 20px;
+}
+
+.playlist-selector-items button{
+  background:    #15d798;
+  background:    linear-gradient(#000000, #15d798 50%, #000000);
+  border-radius: 11px;
+  padding:       5px 5px;
+  color:         #ffffff;
+  display:       inline-block;
+  text-align:    center;
+}
+
+.playlist-selector-items:hover{
+  width: 90%;
+  font-size: 25px;
+
+}
+
+.playlist-selector-items:hover button{
+  font-size: 20px;
+}
+
+.playlist-selector-items button:hover{
+  animation: shake 0.4s;
+}
+
+@keyframes shake{
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  50% { transform: rotate(0eg); }
+  75% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+}
