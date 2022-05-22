@@ -24,6 +24,10 @@ const Game = () => {
        const [correctCount, setCorrectCount] = useState(0)
        const [incorrectCount, setIncorrectCount] = useState(0)
        const [roundCount, setRoundCount] = useState(0);
+       const [leftSong, setLeftSong] = useState([]);
+       const [leftSongImage, setLeftSongImage] = useState("");
+       const [rightSong, setRightSong] = useState([]);
+       const [rightSongImage, setRightSongImage] = useState("");
    
        const [showPlaylistModal, setShowPlaylistModal] = useState(false);
 
@@ -135,13 +139,49 @@ const Game = () => {
                 setChosenPlaylistTracks(trackData) 
             };
             searchPlaylistTracks();
-            }, [chosenPlaylist])   
-        
+            }, [chosenPlaylist]) 
+            
+            // const [curratedPlaylist, setCurratedPlaylist] = useState;
 
+            let curratedPlaylist = [];
+
+            //create an array of songs with a popularity greater than 0
+            useEffect(() => {
+                for(let i = 0; i < chosenPlaylistTracks.length; i++){
+                    if(chosenPlaylistTracks[i].popularity > 0){
+                        curratedPlaylist.push(chosenPlaylistTracks[i])
+                    }
+                }
+            }, [chosenPlaylistTracks])
+        
+        
+        const roundHandler = () => {
+            setRoundCount(roundCount + 1)
+            //left song
+            let left = curratedPlaylist[Math.floor(Math.random()*curratedPlaylist.length)];
+            setLeftSong(left)
+            setLeftSongImage(left.images[0].url)
+            curratedPlaylist.splice(left, 1)
+
+            //right song
+            let right = curratedPlaylist[Math.floor(Math.random()*curratedPlaylist.length)];
+            setRightSong(right)
+            setRightSongImage(right.images[0].url)
+            curratedPlaylist.splice(right, 1)
+        }
+
+        // const startGameBtn = document.querySelector("start-game-btn")
+        const myStyle = {
+            display: 'none'
+        }
 
         const myFunction = () =>{
-            console.log(chosenPlaylist)
-            console.log(chosenPlaylistTracks)
+            console.log(curratedPlaylist)
+            console.log(leftSong)
+            console.log(leftSongImage)
+
+            console.log(rightSong)
+            console.log(rightSongImage)
         };
 
         
@@ -207,7 +247,10 @@ const Game = () => {
                     
                 </Col>
                 <Col lg="5" md="5" sm="5">
-                    <Button className="gradient-button start-game-btn">
+                    <Button 
+                    onClick={roundHandler}
+                    className="gradient-button start-game-btn"
+                    style={{display: roundCount != 0 ? 'none' : 'block'}}>
                         Start Game
                     </Button>
                 </Col>
