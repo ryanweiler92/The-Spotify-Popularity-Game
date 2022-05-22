@@ -16,7 +16,11 @@ const Game = () => {
        const [userData, setUserData] = useState([]);
        const [playlistData, setPlaylistData] = useState([]);
        const [playlistID, setPlaylistID] =useState("");
-       const [playlistSelection, setPlaylistSelection] = useState([]);
+       const [chosenPlaylist, setChosenPlaylist] = useState([]);
+       const [chosenPlaylistTracks, setChosenPlaylistTracks] = useState([]);
+
+       const [correctCount, setCorrectCount] = useState(0)
+       const [incorrectCount, setIncorrectCount] = useState(0)
    
        const [showPlaylistModal, setShowPlaylistModal] = useState(false);
 
@@ -79,34 +83,61 @@ const Game = () => {
                     id: playlist.id
                 }))
                 setPlaylistData(playlistData)
-                setShowPlaylistModal(true)
+                // setShowPlaylistModal(true)
             };
             searchMeTopPlaylists();
             }, [token])
 
-            useEffect(() => {
-                const searchPlaylistByID = async () => {
-                    const {data} = await axios.get(`https://api.spotify.com/v1/playlists/${playlistID}`, {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    })
-                    console.log(data)
-                    // const playlistData = data.items.map((playlist) => ({
-                    //     name: playlist.name,
-                    //     images: playlist.images,
-                    //     numberSongs: playlist.tracks.total,
-                    //     owner: playlist.owner.display_name,
-                    //     id: playlist.id
-                    // }))
-                    
-                    setShowPlaylistModal(false)
-                };
-                searchPlaylistByID();
-                }, [playlistID])        
+        //get high level data of individual playlist chosen
+        useEffect(() => {
+            const searchPlaylistByID = async () => {
+                const {data} = await axios.get(`https://api.spotify.com/v1/playlists/${playlistID}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                console.log(data)
+                const playlistData = {
+                    name: data.name,
+                    id: data.id,
+                    owner: data.owner.display_name,
+                    images: data.images
+                }
+                
+                setShowPlaylistModal(false)
+                setChosenPlaylist(playlistData)
+            };
+            searchPlaylistByID();
+            }, [playlistID])
+            
+        //get tracks for individual playlist
+        useEffect(() => {
+            const searchPlaylistTracks = async () => {
+                const {data} = await axios.get(`https://api.spotify.com/v1/playlists/${playlistID}/tracks?limit=50`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                console.log(data)
+                const trackData = data.items.map((track) => ({
+                    id: track.track.id,
+                    name: track.track.name,
+                    popularity: track.track.popularity,
+                    artist: track.track.artists[0].name,
+                    album: track.track.album.name,
+                    releaseDate: track.track.album.release_date,
+                    images: track.track.album.images
+                }))
+                setChosenPlaylistTracks(trackData) 
+            };
+            searchPlaylistTracks();
+            }, [chosenPlaylist])   
+
+
 
         const myFunction = () =>{
             console.log(playlistID)
+            console.log(chosenPlaylistTracks)
         };
 
         
@@ -127,6 +158,30 @@ const Game = () => {
                     setPlaylistID={setPlaylistID} 
                     setShowPlaylistModal={setShowPlaylistModal}/>
             </Modal>
+
+            <Row className="d-flex justify-content-end">
+                <Col lg="4" md="4" sm="6" className="scoreboard" >
+                        <Row className="d-flex justify-content-center" id="scoreboard-title">
+                            <p >Scoreboard</p>
+                        </Row>
+                        <Row className="my-bottom-border">
+                            <Col className="my-right-border d-flex justify-content-center">
+                                <p>Correct</p>
+                            </Col>
+                            <Col className="d-flex justify-content-center">
+                                <p>{correctCount}</p>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col className="my-right-border d-flex justify-content-center">
+                                <p>Incorrect</p>
+                            </Col>
+                            <Col className="d-flex justify-content-center">
+                                <p>{incorrectCount}</p>
+                            </Col>
+                        </Row>
+                </Col>
+            </Row>
            </>
        )
 }
