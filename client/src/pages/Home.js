@@ -115,11 +115,13 @@ const Home = () => {
                         Authorization: `Bearer ${token}`
                     }
                 })
+                console.log(data)
                 const playlistData = data.items.map((playlist) => ({
                     name: playlist.name,
                     images: playlist.images,
                     numberSongs: playlist.tracks.total,
-                    owner: playlist.owner.display_name
+                    owner: playlist.owner.display_name,
+                    id: playlist.id
                 }))
                 setPlaylistData(playlistData)
             };

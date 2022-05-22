@@ -29,6 +29,16 @@ body {
   width: 85px;
 }
 
+#game-logo-header{
+  height: 50px;
+  width: 50px;
+  margin-left: 10px;
+}
+
+.nav-link{
+  font-size: 30px;
+}
+
 .gradient-button{
   border: 5px solid;
   border-image-slice: 1;

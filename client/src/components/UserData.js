@@ -51,9 +51,7 @@ const UserData = ( {userData, topArtistData, playlistData, myToken} ) => {
     }
         
     const myFunction = () => {
-        console.log(myToken)
-        console.log(artistID)
-        console.log(topTracks)
+        console.log(playlistData)
     }
 
     return (
