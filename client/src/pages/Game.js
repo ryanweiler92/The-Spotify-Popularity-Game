@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import {Container, Row, Col, Form, Button, Card, CardColumns} from 'react-bootstrap'
+import {Container, Row, Col, Form, Button, Card, CardColumns, Modal} from 'react-bootstrap'
 import axios from 'axios';
+import PlaylistSelectorModal from '../components/PlaylistSelectorModal'
 
 const Game = () => {
 
@@ -11,11 +12,8 @@ const Game = () => {
        const RESPONSE_TYPE = "token"
    
        const [token, setToken] = useState("");
-       const [searchKey, setSearchKey] = useState("");
-       const [artists, setArtists] = useState([]);
        //name, id, uri, image, folowers, href
        const [userData, setUserData] = useState([]);
-       const [topArtistData, setTopArtistData] = useState([]);
        const [playlistData, setPlaylistData] = useState([]);
    
        useEffect(() => {
@@ -38,8 +36,67 @@ const Game = () => {
        window.localStorage.removeItem("token")
        }
 
+       //search user data when the page loads
+       useEffect(() => {
+        const searchMe = async () => {
+            const {data} = await axios.get("https://api.spotify.com/v1/me", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            const userData = {
+                name: data.display_name,
+                id: data.id,
+                uri: data.uri,
+                image: data.images[0].url,
+                followers: data.followers.total,
+                href: data.href
+            }
+            setUserData(userData)  
+        };
+        searchMe();
+        }, [token])
+
+        //search users top playlists when userdata is fetched
+        useEffect(() => {
+            const searchMeTopPlaylists = async () => {
+                const {data} = await axios.get("https://api.spotify.com/v1/me/playlists?limit=20", {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                console.log(data)
+                const playlistData = data.items.map((playlist) => ({
+                    name: playlist.name,
+                    images: playlist.images,
+                    numberSongs: playlist.tracks.total,
+                    owner: playlist.owner.display_name,
+                    id: playlist.id
+                }))
+                setPlaylistData(playlistData)
+                setShowPlaylistModal(true)
+            };
+            searchMeTopPlaylists();
+            }, [token])
+
+        const myFunction = () =>{
+            console.log(userData)
+            console.log(playlistData)
+        };
+
+        const [showPlaylistModal, setShowPlaylistModal] = useState(false);
+
        return (
            <>
+           <Button onClick={myFunction}>Button Man</Button>
+           <Modal
+            size="lg"
+            show={showPlaylistModal}
+            onHide={() => setShowPlaylistModal(false)}
+            className="top-tracks-modal"
+            >
+            <PlaylistSelectorModal playlistData={playlistData}/>
+        </Modal>
            </>
        )
 }

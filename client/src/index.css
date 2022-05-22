@@ -24,9 +24,18 @@ body {
   font-size: 40px;
 }
 
+.navbar-brand:hover{
+  font-size: 50px;
+}
+
 #spotify-logo-header{
   height: 85px;
   width: 85px;
+}
+
+#navbar-brand:hover #spotify-logo-header{
+  height: 90px;
+  width: 90px;
 }
 
 #game-logo-header{
@@ -39,6 +48,15 @@ body {
   font-size: 30px;
 }
 
+.nav-link:hover{
+  font-size: 35px;
+}
+
+.nav-link:hover #game-logo-header{
+  height: 55px;
+  width: 55px;
+}
+
 .gradient-button{
   border: 5px solid;
   border-image-slice: 1;
@@ -49,6 +67,10 @@ body {
   text-decoration: none;
   transition: all .4s ease;
   font-size: 20px;
+}
+
+.gradient-button:hover{
+  font-size: 25px;
 }
 
 .gradient-text {
