@@ -43,11 +43,12 @@ const UserData = ( {userData, topArtistData, playlistData, myToken} ) => {
     searchArtistsTopTracks();
     }, [artistID])
 
-    // useEffect(() => {
-    //     setShowModal(true)
-    // }, [topTracks])
-
     const [showModal, setShowModal] = useState(false);
+
+    const artistSetter = (id, name) => {
+        setArtistName(name)
+        setArtistID(id)
+    }
         
     const myFunction = () => {
         console.log(myToken)
@@ -106,7 +107,7 @@ const UserData = ( {userData, topArtistData, playlistData, myToken} ) => {
                                         </ul>
                                     </Row>
                                     <Row className="centered-row mt-3">
-                                        <Button className="gradient-button" value={artist.id} onClick={e => setArtistID(e.target.value)}>
+                                        <Button className="gradient-button" value={artist.id} onClick={e => artistSetter(artist.id, artist.name)}>
                                             View Top Tracks
                                             </Button>
                                     </Row>
@@ -161,7 +162,7 @@ const UserData = ( {userData, topArtistData, playlistData, myToken} ) => {
         onHide={() => setShowModal(false)}
         className="top-tracks-modal"
         >
-        <TopTracksModal topTracks={topTracks}/>
+        <TopTracksModal topTracks={topTracks} artistName={artistName}/>
         </Modal>
         </Container>
 
