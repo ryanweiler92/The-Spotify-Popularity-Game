@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {Container, Row, Col, Form, Button, Card, CardColumns, Modal} from 'react-bootstrap'
 import axios from 'axios';
 import PlaylistSelectorModal from '../components/PlaylistSelectorModal'
+import xIcon from '../assets/images/x.png'
 
 const Game = () => {
 
@@ -17,10 +18,12 @@ const Game = () => {
        const [playlistData, setPlaylistData] = useState([]);
        const [playlistID, setPlaylistID] =useState("");
        const [chosenPlaylist, setChosenPlaylist] = useState([]);
+       const [chosenPlaylistImage, setChosenPlaylistImage] = useState("");
        const [chosenPlaylistTracks, setChosenPlaylistTracks] = useState([]);
 
        const [correctCount, setCorrectCount] = useState(0)
        const [incorrectCount, setIncorrectCount] = useState(0)
+       const [roundCount, setRoundCount] = useState(0);
    
        const [showPlaylistModal, setShowPlaylistModal] = useState(false);
 
@@ -83,7 +86,7 @@ const Game = () => {
                     id: playlist.id
                 }))
                 setPlaylistData(playlistData)
-                // setShowPlaylistModal(true)
+                setShowPlaylistModal(true)
             };
             searchMeTopPlaylists();
             }, [token])
@@ -106,6 +109,7 @@ const Game = () => {
                 
                 setShowPlaylistModal(false)
                 setChosenPlaylist(playlistData)
+                setChosenPlaylistImage(playlistData.images[0].url)
             };
             searchPlaylistByID();
             }, [playlistID])
@@ -132,11 +136,11 @@ const Game = () => {
             };
             searchPlaylistTracks();
             }, [chosenPlaylist])   
-
+        
 
 
         const myFunction = () =>{
-            console.log(playlistID)
+            console.log(chosenPlaylist)
             console.log(chosenPlaylistTracks)
         };
 
@@ -159,29 +163,68 @@ const Game = () => {
                     setShowPlaylistModal={setShowPlaylistModal}/>
             </Modal>
 
-            <Row className="d-flex justify-content-end">
-                <Col lg="4" md="4" sm="6" className="scoreboard" >
+            <Row className="d-flex justify-content-between align-items-center">
+                <Col lg="3" md="3" sm="3" className="overlay-box">
+                <img src={chosenPlaylistImage} id="game-playlist-image" className="img-fluid gradient-border" />
+                    <h3 className="gradient-text text-center" id="text-me">
+                        Current Playlist:
+                        <span className="white-text"> {chosenPlaylist.name}</span>
+                    </h3>
+                </Col>
+                <Col lg="3" md="3" sm="3">
+                    <h1 className="gradient-text text-center">Popularity Guesser</h1>
+                </Col>
+                <Col lg="4" md="4" sm="4" className="scoreboard" >
                         <Row className="d-flex justify-content-center" id="scoreboard-title">
-                            <p >Scoreboard</p>
+                            <p>Scoreboard</p>
                         </Row>
                         <Row className="my-bottom-border">
                             <Col className="my-right-border d-flex justify-content-center">
                                 <p>Correct</p>
+                                
                             </Col>
                             <Col className="d-flex justify-content-center">
                                 <p>{correctCount}</p>
                             </Col>
                         </Row>
-                        <Row>
-                            <Col className="my-right-border d-flex justify-content-center">
+                        <Row className="my-bottom-border">
+                            <Col className="my-right-border d-flex justify-content-center align-items-center">
                                 <p>Incorrect</p>
                             </Col>
-                            <Col className="d-flex justify-content-center">
+                            <Col className="d-flex justify-content-center ">
                                 <p>{incorrectCount}</p>
                             </Col>
                         </Row>
+                        <Row>
+                        <Col className="d-flex justify-content-center">
+                            <p>Current Round: {roundCount} of 10</p>
+                        </Col>
+                        </Row>
                 </Col>
             </Row>
+            <Row className="d-flex justify-content-between align-items-center mt-4">
+                <Col lg="3" md="3" sm="3">
+                    
+                </Col>
+                <Col lg="5" md="5" sm="5">
+                    <Button className="gradient-button start-game-btn">
+                        Start Game
+                    </Button>
+                </Col>
+                <Col lg="3" md="3" sm="3">
+                </Col>
+            </Row>
+            <Container className="game-container mt-4">
+                <Row>
+                    <Col>
+                    
+                    </Col>
+
+                    <Col>
+                    
+                    </Col>
+                </Row>
+            </Container>
            </>
        )
 }
