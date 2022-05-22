@@ -206,10 +206,6 @@ const Game = () => {
             <Row className="d-flex justify-content-between align-items-center">
                 <Col lg="3" md="3" sm="3" className="overlay-box">
                 <img src={chosenPlaylistImage} id="game-playlist-image" className="img-fluid gradient-border" />
-                    <h3 className="gradient-text text-center" id="text-me">
-                        Current Playlist:
-                        <span className="white-text"> {chosenPlaylist.name}</span>
-                    </h3>
                 </Col>
                 <Col lg="3" md="3" sm="3">
                     <h1 className="gradient-text text-center">Popularity Guesser</h1>
@@ -257,14 +253,40 @@ const Game = () => {
                 <Col lg="3" md="3" sm="3">
                 </Col>
             </Row>
-            <Container className="game-container mt-4">
+            <Container className="game-container mt-4 mb-4">
                 <Row>
                     <Col>
-                    
+                        <Row>
+                            <Col className="hover-img">
+                                <img src={leftSongImage} className="img-fluid game-song-img"/>
+                                <figcaption style={{display: roundCount == 0 ? 'none' : ''}}>
+                                    <h3 className="text-center">Song: {leftSong.name}</h3>
+                                    <h3 className="text-center">Artist: {leftSong.artist}</h3>
+                                    <h3 className="text-center">Album: {leftSong.album}</h3>
+                                </figcaption>
+                            </Col>
+                        </Row>
+                        <Row className="mt-3 d-flex justify-content-center">
+                            <iframe src={`https://open.spotify.com/embed/track/${leftSong.id}?utm_source=generator`}  
+                            frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                        </Row>
                     </Col>
 
                     <Col>
-                    
+                        <Row>
+                            <Col className="hover-img">
+                                <img src={rightSongImage} className="img-fluid game-song-img" />
+                                <figcaption style={{display: roundCount == 0 ? 'none' : ''}}>
+                                    <h3 className="text-center">Song: {rightSong.name}</h3>
+                                    <h3 className="text-center">Artist: {rightSong.artist}</h3>
+                                    <h3 className="text-center">Album: {rightSong.album}</h3>
+                                </figcaption>
+                            </Col>
+                        </Row>
+                        <Row className="mt-3 d-flex justify-content-center">
+                            <iframe src={`https://open.spotify.com/embed/track/${rightSong.id}?utm_source=generator`}  
+                            frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                        </Row>
                     </Col>
                 </Row>
             </Container>
