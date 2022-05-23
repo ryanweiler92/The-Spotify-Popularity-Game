@@ -28,6 +28,8 @@ const Game = () => {
        const [leftSongImage, setLeftSongImage] = useState("");
        const [rightSong, setRightSong] = useState([]);
        const [rightSongImage, setRightSongImage] = useState("");
+       const [correctAnswer, setCorrectAnswer] = useState("")
+       const [chosenAnswer, setChosenAnswer] = useState("")
    
        const [showPlaylistModal, setShowPlaylistModal] = useState(false);
 
@@ -154,10 +156,15 @@ const Game = () => {
                 }
             }, [chosenPlaylistTracks])
         
-        
+        //advance rounds and call random song function
         const roundHandler = () => {
             setRoundCount(roundCount + 1)
-            //left song
+            randomSongSelect()
+        };
+        
+        //grab 2 random songs and check to make sure they dont have same pop score
+        const randomSongSelect = () => {
+        //left song
             let left = curratedPlaylist[Math.floor(Math.random()*curratedPlaylist.length)];
             setLeftSong(left)
             setLeftSongImage(left.images[0].url)
@@ -168,7 +175,36 @@ const Game = () => {
             setRightSong(right)
             setRightSongImage(right.images[0].url)
             curratedPlaylist.splice(right, 1)
-        }
+
+            if(right.popularity == left.popularity){
+                randomSongSelect()
+            };
+
+            //correct answer
+            if(right.popularity > left.popularity){
+                setCorrectAnswer(right.name)
+            } else {
+                setCorrectAnswer(left.name)
+            }
+        };
+
+        //check answer vs correct answer
+        //state is updating on initial page render so had to create an extra if statement to catch
+        useEffect(() => {
+            const answerHandler = () => {
+                if(chosenAnswer === ""){
+                    console.log("pls don't update")
+                }else if(chosenAnswer === correctAnswer){
+                    setCorrectCount(correctCount + 1)
+                    setRoundCount(roundCount + 1)
+                } else {
+                    setIncorrectCount(incorrectCount + 1)
+                    setRoundCount(roundCount + 1)
+                }
+            };
+        answerHandler();
+        }, [chosenAnswer] )
+
 
         // const startGameBtn = document.querySelector("start-game-btn")
         const myStyle = {
@@ -176,18 +212,11 @@ const Game = () => {
         }
 
         const myFunction = () =>{
-            console.log(curratedPlaylist)
-            console.log(leftSong)
-            console.log(leftSongImage)
-
+            console.log(correctAnswer)
             console.log(rightSong)
-            console.log(rightSongImage)
+            console.log(chosenAnswer)
         };
-
         
-
-        
-
        return (
            <>
            <Button onClick={myFunction}>Button Man</Button>
@@ -258,8 +287,11 @@ const Game = () => {
                     <Col>
                         <Row>
                             <Col className="hover-img">
-                                <img src={leftSongImage} className="img-fluid game-song-img"/>
-                                <figcaption style={{display: roundCount == 0 ? 'none' : ''}}>
+                                <img src={leftSongImage}
+                                className="img-fluid game-song-img"/>
+                                <figcaption style={{display: roundCount == 0 ? 'none' : ''}}
+                                value={leftSong.name} 
+                                onClick={(e) => setChosenAnswer(leftSong.name)}>
                                     <h3 className="text-center">Song: {leftSong.name}</h3>
                                     <h3 className="text-center">Artist: {leftSong.artist}</h3>
                                     <h3 className="text-center">Album: {leftSong.album}</h3>
@@ -275,8 +307,11 @@ const Game = () => {
                     <Col>
                         <Row>
                             <Col className="hover-img">
-                                <img src={rightSongImage} className="img-fluid game-song-img" />
-                                <figcaption style={{display: roundCount == 0 ? 'none' : ''}}>
+                                <img src={rightSongImage} 
+                                className="img-fluid game-song-img"/>
+                                <figcaption style={{display: roundCount == 0 ? 'none' : ''}}
+                                value={rightSong.name}
+                                onClick={(e) => setChosenAnswer(rightSong.name)}>
                                     <h3 className="text-center">Song: {rightSong.name}</h3>
                                     <h3 className="text-center">Artist: {rightSong.artist}</h3>
                                     <h3 className="text-center">Album: {rightSong.album}</h3>
