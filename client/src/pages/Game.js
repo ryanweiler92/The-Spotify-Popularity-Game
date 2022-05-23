@@ -146,27 +146,28 @@ const Game = () => {
             };
             searchPlaylistTracks();
             }, [chosenPlaylist]) 
-            
-            // const [curratedPlaylist, setCurratedPlaylist] = useState;
 
-            let curratedPlaylist = [];
+        let [curratedPlaylist, setCurratedPlaylist] = useState([]); 
 
-            //create an array of songs with a popularity greater than 0
-            useEffect(() => {
-                for(let i = 0; i < chosenPlaylistTracks.length; i++){
-                    if(chosenPlaylistTracks[i].popularity > 0){
-                        curratedPlaylist.push(chosenPlaylistTracks[i])
-                    }
+        //create an array of songs with a popularity greater than 0
+        useEffect(() => {
+            for(let i = 0; i < chosenPlaylistTracks.length; i++){
+                if(chosenPlaylistTracks[i].popularity > 0){
+                    setCurratedPlaylist(oldArray => [...oldArray, chosenPlaylistTracks[i]])
                 }
-            }, [chosenPlaylistTracks])
+            }
+        }, [chosenPlaylistTracks])
         
         //advance rounds and call random song function
         const roundHandler = () => {
             if(incorrectCount < 3){
             setRoundCount(roundCount + 1)
+            setAnswerModal(false)
             randomSongSelect()
+            
             } else {
                 console.log("end game")
+                setAnswerModal(false)
             }
         };
 
@@ -177,13 +178,13 @@ const Game = () => {
             let left = curratedPlaylist[Math.floor(Math.random()*curratedPlaylist.length)];
             setLeftSong(left)
             setLeftSongImage(left.images[0].url)
-            curratedPlaylist.splice(left, 1)
+            // curratedPlaylist.splice([left], 1)
 
             //right song
             let right = curratedPlaylist[Math.floor(Math.random()*curratedPlaylist.length)];
             setRightSong(right)
             setRightSongImage(right.images[0].url)
-            curratedPlaylist.splice(right, 1)
+            // curratedPlaylist.splice([right], 1)
 
             if(right.popularity == left.popularity){
                 randomSongSelect()
@@ -226,9 +227,7 @@ const Game = () => {
         }
 
         const myFunction = () =>{
-            console.log(chosenAnswer)
-            console.log(chosenArtist)
-            console.log(leftSong)
+            console.log(curratedPlaylist)
         };
         
        return (
@@ -400,8 +399,13 @@ const Game = () => {
                         <Row className="d-flex justify-content-center align-items-center">
                             <p>Album: {rightSong.album}</p>
                         </Row>
-
                     </Col>
+                </Row>
+                <Row className="d-flex justify-content-center align-items-center">
+                    <Button 
+                    className="gradient-button"
+                    onClick={roundHandler}
+                    >Next Round</Button>
                 </Row>
             </Modal.Body>
             </Modal>
