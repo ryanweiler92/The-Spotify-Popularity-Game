@@ -28,10 +28,14 @@ const Game = () => {
        const [leftSongImage, setLeftSongImage] = useState("");
        const [rightSong, setRightSong] = useState([]);
        const [rightSongImage, setRightSongImage] = useState("");
-       const [correctAnswer, setCorrectAnswer] = useState("")
-       const [chosenAnswer, setChosenAnswer] = useState("")
+       const [correctAnswer, setCorrectAnswer] = useState("");
+       const [chosenAnswer, setChosenAnswer] = useState("");
+       const [chosenArtist, setChosenArtist] = useState("");
+       const [answerStatus, setAnswerStatus] = useState("");
+       const [correctSide, setCorrectSide] = useState("");
    
        const [showPlaylistModal, setShowPlaylistModal] = useState(false);
+       const [answerModal, setAnswerModal] = useState(false);
 
        //get spotify token
        useEffect(() => {
@@ -158,9 +162,14 @@ const Game = () => {
         
         //advance rounds and call random song function
         const roundHandler = () => {
+            if(incorrectCount < 3){
             setRoundCount(roundCount + 1)
             randomSongSelect()
+            } else {
+                console.log("end game")
+            }
         };
+
         
         //grab 2 random songs and check to make sure they dont have same pop score
         const randomSongSelect = () => {
@@ -183,8 +192,11 @@ const Game = () => {
             //correct answer
             if(right.popularity > left.popularity){
                 setCorrectAnswer(right.name)
+                setCorrectSide("right")
             } else {
                 setCorrectAnswer(left.name)
+                setCorrectSide("left")
+
             }
         };
 
@@ -196,10 +208,12 @@ const Game = () => {
                     console.log("pls don't update")
                 }else if(chosenAnswer === correctAnswer){
                     setCorrectCount(correctCount + 1)
-                    setRoundCount(roundCount + 1)
+                    setAnswerStatus("Correct")
+                    setAnswerModal(true)
                 } else {
                     setIncorrectCount(incorrectCount + 1)
-                    setRoundCount(roundCount + 1)
+                    setAnswerModal(true)
+                    setAnswerStatus("Incorrect")
                 }
             };
         answerHandler();
@@ -212,9 +226,9 @@ const Game = () => {
         }
 
         const myFunction = () =>{
-            console.log(correctAnswer)
-            console.log(rightSong)
             console.log(chosenAnswer)
+            console.log(chosenArtist)
+            console.log(leftSong)
         };
         
        return (
@@ -291,7 +305,7 @@ const Game = () => {
                                 className="img-fluid game-song-img"/>
                                 <figcaption style={{display: roundCount == 0 ? 'none' : ''}}
                                 value={leftSong.name} 
-                                onClick={(e) => setChosenAnswer(leftSong.name)}>
+                                onClick={(e) => {setChosenAnswer(leftSong.name); setChosenArtist(leftSong.artist)}}>
                                     <h3 className="text-center">Song: {leftSong.name}</h3>
                                     <h3 className="text-center">Artist: {leftSong.artist}</h3>
                                     <h3 className="text-center">Album: {leftSong.album}</h3>
@@ -311,7 +325,7 @@ const Game = () => {
                                 className="img-fluid game-song-img"/>
                                 <figcaption style={{display: roundCount == 0 ? 'none' : ''}}
                                 value={rightSong.name}
-                                onClick={(e) => setChosenAnswer(rightSong.name)}>
+                                onClick={(e) => {setChosenAnswer(rightSong.name); setChosenArtist(rightSong.artist)}}>
                                     <h3 className="text-center">Song: {rightSong.name}</h3>
                                     <h3 className="text-center">Artist: {rightSong.artist}</h3>
                                     <h3 className="text-center">Album: {rightSong.album}</h3>
@@ -325,6 +339,72 @@ const Game = () => {
                     </Col>
                 </Row>
             </Container>
+
+            <Modal
+            size="lg"
+            show={answerModal}
+            onHide={() => setAnswerModal(false)}
+            className="answer-modal"
+            >
+                <Modal.Header className="d-flex align-items-center justify-content-center text-center dark-modal" closeButton>
+                    <Modal.Title className="d-flex align-items-center justify-content-center text-center">
+                        <h2>{answerStatus}</h2>
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="dark-modal m-auto">
+                <Row className="d-flex justify-content-center align-items-center">
+                    <h3>You chose <span className="font-weight-bold">{chosenAnswer} </span> 
+                    by <span className="font-weight-bold">{chosenArtist}</span></h3>
+                </Row>
+                <Row>
+                    <Col>
+                        <Row className="d-flex justify-content-center align-items-center">
+                            <Col lg="10" md="10" sm="10" >
+                                <img src={leftSongImage} className="img-fluid answer-modal-img" />
+                            </Col>
+                        </Row>
+                        <Row className="d-flex justify-content-center align-items-center mt-2">
+                                <h3 id="left-pop" 
+                                className={correctSide == "left" ? "correct" : "incorrect"}>
+                                    Popularity: {leftSong.popularity}
+                                </h3>
+                        </Row>
+                        <Row className="d-flex justify-content-center align-items-center">
+                            <p>Song: {leftSong.name}</p>
+                        </Row>
+                        <Row className="d-flex justify-content-center align-items-center">
+                            <p>Artist: {leftSong.artist}</p>
+                        </Row>
+                        <Row className="d-flex justify-content-center align-items-center">
+                            <p>Album: {leftSong.album}</p>
+                        </Row>
+                    </Col>
+                    <Col>
+                        <Row className="d-flex justify-content-center align-items-center">
+                            <Col lg="10" md="10" sm="10" >
+                                <img src={rightSongImage} className="img-fluid answer-modal-img" />
+                            </Col>
+                        </Row>
+                        <Row className="d-flex justify-content-center align-items-center mt-2">
+                                <h3 id="right-pop"
+                                className={correctSide == "right" ? "correct" : "incorrect"}>
+                                    Popularity: {rightSong.popularity}
+                                </h3>
+                        </Row>
+                        <Row className="d-flex justify-content-center align-items-center">
+                            <p>Song: {rightSong.name}</p>
+                        </Row>
+                        <Row className="d-flex justify-content-center align-items-center">
+                            <p>Artist: {rightSong.artist}</p>
+                        </Row>
+                        <Row className="d-flex justify-content-center align-items-center">
+                            <p>Album: {rightSong.album}</p>
+                        </Row>
+
+                    </Col>
+                </Row>
+            </Modal.Body>
+            </Modal>
            </>
        )
 }

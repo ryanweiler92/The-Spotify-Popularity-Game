@@ -1,5 +1,6 @@
 :root {
   --gradient: linear-gradient(to left top, #2AF598 10%, #009EFD 90%) !important;
+  --correct: linear-gradient(to left top, #2EB62C 10%, #83D475 90%) !important;
 }
 
 body {
@@ -393,4 +394,28 @@ iframe{
 
 .hover-img:hover figcaption {
   opacity: 1;
+}
+
+
+.answer-modal-img{
+  max-height: 400px;
+}
+
+.correct{
+  background: linear-gradient(to left top, #2EB62C 10%, #83D475 90%);
+  border: white solid 2px;
+  border-radius: 30px;
+  padding: 10px;
+}
+
+.incorrect{
+  background: linear-gradient(to left top, #961E1E 10%, #CB5F5F 90%);
+  border: white solid 2px;
+  border-radius: 30px;
+  padding: 10px;
+}
+
+.answer-modal-img{
+  border-radius: 20px;
+  border: solid white 2px;
 }
