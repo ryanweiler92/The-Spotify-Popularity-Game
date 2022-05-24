@@ -204,13 +204,60 @@ iframe{
   background-color: #222
 }
 
+.dropdown-toggle{
+  background: #111;
+}
+
+.dropdown-menu{
+  background: var(--gradient) !important;
+  border: solid 3px black rounded;
+}
+
+.dropdown-item{
+  color:rgba(250, 250, 250, 0.8);
+  text-align: center;
+  font-size: 18px;
+}
+
+.dropdown-toggle{
+  background: var(--gradient) !important;
+  -webkit-text-fill-color: transparent !important;
+  -webkit-background-clip: text !important;
+  font-size: 20px;
+  border: 1px solid var(--gradient) !important;
+  font-weight: bold;
+}
+
+.my-btn{
+  background: var(--gradient) !important;
+  -webkit-text-fill-color: transparent !important;
+  -webkit-background-clip: text !important;
+  font-size: 20px;
+  border: 1px solid var(--gradient) !important;
+  font-weight: bold;
+}
+
+.my-next-btn{
+  background: var(--gradient) !important;
+  -webkit-text-fill-color: transparent !important;
+  -webkit-background-clip: text !important;
+  font-size: 30px;
+  border: 5px solid  !important;
+  font-weight: bold;
+  transition: all .4s ease;
+  border-image-slice: 1 !important;
+  border-image-source:  var(--gradient) !important;
+}
+
 .playlist-selector-img{
   height: 80px;
   width: 80px;
+  margin: 5px;
+  border: solid white .5px;
 }
 
 .playlist-selector-items{
-  background:var(--gradient) !important; 
+  background: #111 !important; 
   width: 80%;
   border-radius: 20px;
   border: 2px solid white;
@@ -220,13 +267,12 @@ iframe{
 }
 
 .playlist-selector-items button{
-  background:    #15d798;
-  background:    linear-gradient(#000000, #15d798 50%, #000000);
-  border-radius: 11px;
-  padding:       5px 5px;
-  color:         #ffffff;
-  display:       inline-block;
-  text-align:    center;
+  background: var(--gradient) !important;
+  -webkit-text-fill-color: transparent !important;
+  -webkit-background-clip: text !important;
+  font-size: 20px;
+  border: 1px solid var(--gradient) !important;
+  font-weight: bold;
 }
 
 .playlist-selector-items:hover{

@@ -1,11 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import {Container, Nav, Navbar, Modal, Tab, Button, Row, Col} from 'react-bootstrap'
+import {Container, Dropdown, DropdownButton, Nav, Navbar, Modal, Tab, Button, Row, Col} from 'react-bootstrap'
 import background from '../assets/images/concert.jpg'
 
-const PlaylistSelectorModal = ({playlistData, setPlaylistID, setRunPlaylistSearch}) => {
+const PlaylistSelectorModal = ({playlistData, setPlaylistID, setRunPlaylistSearch, publicPlaylistData}) => {
 
     //playlists with 20 or more tracks
     const qualifiedPlaylists = playlistData.filter(playlist => playlist.numberSongs >= 50)
+    const qualifiedPublicPlaylists = publicPlaylistData.filter(playlist => playlist.numberSongs >= 50)
+
+    const [category, setCategory] = useState(qualifiedPlaylists)
+
+    const categoryHandler =(event) => {
+        console.log(event)
+        if(event == "qualifiedPublicPlaylists"){
+            setCategory(qualifiedPublicPlaylists)
+        } else {
+            setCategory(qualifiedPlaylists)
+        }
+    }
 
     const playlistSelectHandler = (id) =>{
         setPlaylistID(id)
@@ -13,8 +25,8 @@ const PlaylistSelectorModal = ({playlistData, setPlaylistID, setRunPlaylistSearc
     }
 
     const myFunction = () => {
-        console.log(playlistData)
-        console.log(qualifiedPlaylists)
+        console.log(qualifiedPublicPlaylists)
+        console.log(category)
     }
 
     return (
@@ -30,7 +42,15 @@ const PlaylistSelectorModal = ({playlistData, setPlaylistID, setRunPlaylistSearc
                     with 50 or more tracks qualify.
                 </p>
                 </Row>
-                {qualifiedPlaylists?.map((playlist) => {
+                <Row className="centered-row">
+                    <DropdownButton title="Playlist Categories" 
+                    onSelect={categoryHandler}
+                    >
+                        <Dropdown.Item eventKey="qualifiedPlaylists" >My Playlists</Dropdown.Item>
+                        <Dropdown.Item eventKey="qualifiedPublicPlaylists" >Featured Spotify Playlists</Dropdown.Item>
+                    </DropdownButton>
+                </Row>
+                {category?.map((playlist) => {
                     return (
                         <Row className="centered-row mt-2 m-auto playlist-selector-items">
                             <Col>

@@ -271,7 +271,8 @@ const Game = () => {
             className="top-tracks-modal"
             >
                 <PlaylistSelectorModal 
-                    playlistData={playlistData} 
+                    playlistData={playlistData}
+                    publicPlaylistData={publicPlaylistData} 
                     setPlaylistID={setPlaylistID} 
                     setShowPlaylistModal={setShowPlaylistModal}/>
             </Modal>
@@ -452,7 +453,7 @@ const Game = () => {
                 </Row>
                 <Row className="d-flex justify-content-center align-items-center">
                     <Button 
-                    className="next-button"
+                    className="my-next-btn"
                     onClick={roundHandler}
                     >Next Round</Button>
                 </Row>
