@@ -5,7 +5,7 @@ import background from '../assets/images/concert.jpg'
 const PlaylistSelectorModal = ({playlistData, setPlaylistID, setRunPlaylistSearch}) => {
 
     //playlists with 20 or more tracks
-    const qualifiedPlaylists = playlistData.filter(playlist => playlist.numberSongs >= 20)
+    const qualifiedPlaylists = playlistData.filter(playlist => playlist.numberSongs >= 50)
 
     const playlistSelectHandler = (id) =>{
         setPlaylistID(id)
@@ -27,7 +27,7 @@ const PlaylistSelectorModal = ({playlistData, setPlaylistID, setRunPlaylistSearc
             <Modal.Body className="dark-modal m-auto">
                 <Row>
                 <p id="playlist-selector-instructions">Please select one of your playlists to use in the game. Only playlists
-                    with 20 or more tracks qualify.
+                    with 50 or more tracks qualify.
                 </p>
                 </Row>
                 {qualifiedPlaylists?.map((playlist) => {

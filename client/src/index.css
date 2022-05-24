@@ -22,7 +22,7 @@ body {
 
 .navbar-brand{
   font-weight: bolder;
-  font-size: 40px;
+  font-size: 35px;
 }
 
 .navbar-brand:hover{
@@ -266,7 +266,7 @@ iframe{
 }
 
 #scoreboard-title p{
-  font-size: 25px !important;
+  font-size: 32px !important;
 }
 
 #scoreboard-title{
@@ -276,7 +276,7 @@ iframe{
 }
 
 .scoreboard p{
-  font-size: 22px;
+  font-size: 30px;
   padding-top: 10px;
 }
 
@@ -415,7 +415,60 @@ iframe{
   padding: 10px;
 }
 
+.correct-text{
+  color: green;
+  
+}
+
+.incorrect-text{
+  color: red;
+}
+
 .answer-modal-img{
   border-radius: 20px;
   border: solid white 2px;
 }
+
+.answer-modal p{
+  font-size: 20px;
+  text-align: center;
+}
+
+.game-song-img{
+  border: solid white 4px;
+  border-radius: 20px;
+}
+
+.x-icon-show{
+  height: 50px;
+  padding-top: 1px;
+}
+
+.x-icon-hide{
+
+  display: none;
+}
+
+.next-button{
+background:    #2af598;
+background:    linear-gradient(#2af598, #009efd);
+border:        3px solid #f3f3f3;
+border-radius: 11px;
+padding:       20px 45px;
+color:         #ffffff;
+display:       inline-block;
+text-align:    center;
+font-size: 30px;
+}
+
+.post-score-button{
+  background:    #0000ff;
+  background:    linear-gradient(#0000ff, #669dce);
+  border:        3px solid #f3f3f3;
+  border-radius: 11px;
+  padding:       20px 45px;
+  color:         #ffffff;
+  display:       inline-block;
+  text-align:    center;
+  font-size: 30px;
+  }

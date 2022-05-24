@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Container, Row, Col, Form, Button, Card, CardColumns, Modal} from 'react-bootstrap'
+import {Container, Row, ListGroup, Col, Tab, Form, Button, Card, CardColumns, Modal, Accordion} from 'react-bootstrap'
 import axios from 'axios';
 import PlaylistSelectorModal from '../components/PlaylistSelectorModal'
 import xIcon from '../assets/images/x.png'
@@ -36,6 +36,9 @@ const Game = () => {
    
        const [showPlaylistModal, setShowPlaylistModal] = useState(false);
        const [answerModal, setAnswerModal] = useState(false);
+       const [resultsModal, setResultsModal] = useState(false);
+       const [instructionsModal, setInstructionsModal] = useState(false);
+       
 
        //get spotify token
        useEffect(() => {
@@ -127,7 +130,7 @@ const Game = () => {
         //get tracks for individual playlist
         useEffect(() => {
             const searchPlaylistTracks = async () => {
-                const {data} = await axios.get(`https://api.spotify.com/v1/playlists/${playlistID}/tracks?limit=50`, {
+                const {data} = await axios.get(`https://api.spotify.com/v1/playlists/${playlistID}/tracks?limit=100`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -166,8 +169,8 @@ const Game = () => {
             randomSongSelect()
             
             } else {
-                console.log("end game")
                 setAnswerModal(false)
+                setResultsModal(true)
             }
         };
 
@@ -178,13 +181,13 @@ const Game = () => {
             let left = curratedPlaylist[Math.floor(Math.random()*curratedPlaylist.length)];
             setLeftSong(left)
             setLeftSongImage(left.images[0].url)
-            // curratedPlaylist.splice([left], 1)
 
             //right song
             let right = curratedPlaylist[Math.floor(Math.random()*curratedPlaylist.length)];
             setRightSong(right)
             setRightSongImage(right.images[0].url)
-            // curratedPlaylist.splice([right], 1)
+            let filteredArray = curratedPlaylist.filter(song => song !== right && left)
+            setCurratedPlaylist(filteredArray)
 
             if(right.popularity == left.popularity){
                 randomSongSelect()
@@ -220,6 +223,13 @@ const Game = () => {
         answerHandler();
         }, [chosenAnswer] )
 
+        const resetGame = () => {
+            setRoundCount(0);
+            setCorrectCount(0);
+            setIncorrectCount(0);
+            setResultsModal(false);
+            setShowPlaylistModal(true);
+        }
 
         // const startGameBtn = document.querySelector("start-game-btn")
         const myStyle = {
@@ -247,10 +257,19 @@ const Game = () => {
 
             <Row className="d-flex justify-content-between align-items-center">
                 <Col lg="3" md="3" sm="3" className="overlay-box">
-                <img src={chosenPlaylistImage} id="game-playlist-image" className="img-fluid gradient-border" />
+                <img src={chosenPlaylistImage} id="game-playlist-image" 
+                className={chosenPlaylistImage == "" ? "x-icon-hide" : "img-fluid gradient-border"}/>
                 </Col>
                 <Col lg="3" md="3" sm="3">
-                    <h1 className="gradient-text text-center">Popularity Guesser</h1>
+                    <Row>
+                    <h1 className="gradient-text text-center">The Spotify Popularity Game</h1>
+                    </Row>
+                    <Row className="d-flex justify-content-center mt-3">
+                        <Button 
+                        className="gradient-button"
+                        onClick={() => setInstructionsModal(true)}
+                        >See Instructions</Button>
+                    </Row>
                 </Col>
                 <Col lg="4" md="4" sm="4" className="scoreboard" >
                         <Row className="d-flex justify-content-center" id="scoreboard-title">
@@ -270,12 +289,17 @@ const Game = () => {
                                 <p>Incorrect</p>
                             </Col>
                             <Col className="d-flex justify-content-center ">
-                                <p>{incorrectCount}</p>
+                            <img src={xIcon} 
+                                className={incorrectCount < 1 ? "x-icon-hide" : "x-icon-show"}/>
+                                <img src={xIcon} 
+                                className={incorrectCount < 2 ? "x-icon-hide" : "x-icon-show"} />
+                                <img src={xIcon} 
+                                className={incorrectCount < 3 ? "x-icon-hide" : "x-icon-show"}/>
                             </Col>
                         </Row>
                         <Row>
                         <Col className="d-flex justify-content-center">
-                            <p>Current Round: {roundCount} of 10</p>
+                            <p>Current Round: {roundCount}</p>
                         </Col>
                         </Row>
                 </Col>
@@ -301,7 +325,7 @@ const Game = () => {
                         <Row>
                             <Col className="hover-img">
                                 <img src={leftSongImage}
-                                className="img-fluid game-song-img"/>
+                                className={roundCount == 0 ? "x-icon-hide" : "img-fluid game-song-img"}/>
                                 <figcaption style={{display: roundCount == 0 ? 'none' : ''}}
                                 value={leftSong.name} 
                                 onClick={(e) => {setChosenAnswer(leftSong.name); setChosenArtist(leftSong.artist)}}>
@@ -313,7 +337,8 @@ const Game = () => {
                         </Row>
                         <Row className="mt-3 d-flex justify-content-center">
                             <iframe src={`https://open.spotify.com/embed/track/${leftSong.id}?utm_source=generator`}  
-                            frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                            frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                            className={roundCount == 0 ? "x-icon-hide" : ""}/>
                         </Row>
                     </Col>
 
@@ -321,7 +346,7 @@ const Game = () => {
                         <Row>
                             <Col className="hover-img">
                                 <img src={rightSongImage} 
-                                className="img-fluid game-song-img"/>
+                                className={roundCount == 0 ? "x-icon-hide" : "img-fluid game-song-img"}/>
                                 <figcaption style={{display: roundCount == 0 ? 'none' : ''}}
                                 value={rightSong.name}
                                 onClick={(e) => {setChosenAnswer(rightSong.name); setChosenArtist(rightSong.artist)}}>
@@ -333,7 +358,8 @@ const Game = () => {
                         </Row>
                         <Row className="mt-3 d-flex justify-content-center">
                             <iframe src={`https://open.spotify.com/embed/track/${rightSong.id}?utm_source=generator`}  
-                            frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                            frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                            className={roundCount == 0 ? "x-icon-hide" : ""}/>
                         </Row>
                     </Col>
                 </Row>
@@ -347,15 +373,17 @@ const Game = () => {
             >
                 <Modal.Header className="d-flex align-items-center justify-content-center text-center dark-modal" closeButton>
                     <Modal.Title className="d-flex align-items-center justify-content-center text-center">
-                        <h2>{answerStatus}</h2>
+                        <h2 className={answerStatus == "Correct" ? "correct-text" : "incorrect-text"}>
+                            {answerStatus}
+                        </h2>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="dark-modal m-auto">
                 <Row className="d-flex justify-content-center align-items-center">
-                    <h3>You chose <span className="font-weight-bold">{chosenAnswer} </span> 
+                    <h3 className="text-center">You chose <span className="font-weight-bold">{chosenAnswer} </span> 
                     by <span className="font-weight-bold">{chosenArtist}</span></h3>
                 </Row>
-                <Row>
+                <Row className="mt-2">
                     <Col>
                         <Row className="d-flex justify-content-center align-items-center">
                             <Col lg="10" md="10" sm="10" >
@@ -403,13 +431,100 @@ const Game = () => {
                 </Row>
                 <Row className="d-flex justify-content-center align-items-center">
                     <Button 
-                    className="gradient-button"
+                    className="next-button"
                     onClick={roundHandler}
                     >Next Round</Button>
                 </Row>
             </Modal.Body>
             </Modal>
-           </>
+
+            <Modal
+            size="lg"
+            show={resultsModal}
+            onHide={() => setResultsModal(false)}
+            className="results-modal">
+                <Modal.Header className="d-flex align-items-center justify-content-center text-center dark-modal" closeButton>
+                    <Modal.Title className="d-flex align-items-center justify-content-center text-center">
+                        <h2>Your Results</h2>
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="dark-modal m-auto">
+                    <Row>
+                        <h4>Congratulations! You made it through round {roundCount - 1} on {chosenPlaylist.name}</h4>
+                    </Row>
+                    <Row className="mt-3">
+                        <Col>
+                        <Button className="next-button"
+                        onClick={resetGame}
+                        >Play Again?</Button>
+                        </Col>
+                        <Col>
+                        <Button 
+                        className="post-score-button">
+                            Post Score?
+                        </Button>
+                        </Col>
+                    </Row>
+                </Modal.Body>
+            </Modal>
+            
+            <Modal
+            size="lg"
+            show={instructionsModal}
+            onHide={() => setInstructionsModal(false)}
+            className="results-modal">
+                <Modal.Header className="d-flex align-items-center justify-content-center text-center dark-modal" closeButton>
+                    <Modal.Title className="d-flex align-items-center justify-content-center text-center">
+                        <h2>Instructions</h2>
+                    </Modal.Title>
+                </Modal.Header>
+                    <Modal.Body className="dark-modal m-auto">
+                    <Tab.Container id="list-group-tabs-example" defaultActiveKey="#link1">
+                        <Row>
+                            <Col sm={4}>
+                            <ListGroup>
+                                <ListGroup.Item action href="#link1">
+                                Spotify's Popularity Rating
+                                </ListGroup.Item>
+                                <ListGroup.Item action href="#link2">
+                                Selecting Answers
+                                </ListGroup.Item>
+                                <ListGroup.Item action href="#link3">
+                                Number of Lives
+                                </ListGroup.Item>
+                                <ListGroup.Item action href="#link4">
+                                Posting Scores
+                                </ListGroup.Item>
+                            </ListGroup>
+                            </Col>
+                            <Col sm={8}>
+                            <Tab.Content>
+                                <Tab.Pane eventKey="#link1">
+                                The popularity of a track is a value between 0 and 100, with 100 being the most popular. 
+                                The popularity is calculated by algorithm and is based, in the most part, on the total number of plays the track has had and how recent those plays are.
+                                Generally speaking, songs that are being played a lot now will have a higher popularity than songs that were played a lot in the past.         
+                                </Tab.Pane>
+                                <Tab.Pane eventKey="#link2">
+                                To select an answer, simply click on the image of the artist's track you believe
+                                is more popular. To see a details on the track, hover your mouse over the image.
+                                </Tab.Pane>
+                                <Tab.Pane eventKey="#link3">
+                                Each time you start a game you are given three lives. Each time you select an
+                                incorrect answer, one life will be subtracted which will be represented as an X
+                                in the incorrect box of the scoreboard.
+                                </Tab.Pane>
+                                <Tab.Pane eventKey="#link4">
+                                Your final score will represent the last round you correctly answered. To post your
+                                scores you will need to make an account. Then you will be able to post your scores to the 
+                                leaderboards and see other users scores.
+                                </Tab.Pane>
+                            </Tab.Content>
+                            </Col>
+                        </Row>
+                        </Tab.Container>
+                    </Modal.Body>
+            </Modal>
+        </>
        )
 }
 
