@@ -16,6 +16,7 @@ const Game = () => {
        //name, id, uri, image, folowers, href
        const [userData, setUserData] = useState([]);
        const [playlistData, setPlaylistData] = useState([]);
+       const [publicPlaylistData, setPublicPlaylistData] = useState([]);
        const [playlistID, setPlaylistID] =useState("");
        const [chosenPlaylist, setChosenPlaylist] = useState([]);
        const [chosenPlaylistImage, setChosenPlaylistImage] = useState("");
@@ -104,6 +105,27 @@ const Game = () => {
             searchMeTopPlaylists();
             }, [token])
 
+        //search public playlists
+        useEffect(() => {
+            const searchPublicPlaylists = async () => {
+                const {data} = await axios.get("https://api.spotify.com/v1/browse/featured-playlists", {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                console.log(data)
+                const playlistData = data.playlists.items.map((playlist) => ({
+                    name: playlist.name,
+                    images: playlist.images,
+                    numberSongs: playlist.tracks.total,
+                    owner: playlist.owner.display_name,
+                    id: playlist.id
+                }))
+                setPublicPlaylistData(playlistData)
+            };
+            searchPublicPlaylists()
+            }, [token])
+
         //get high level data of individual playlist chosen
         useEffect(() => {
             const searchPlaylistByID = async () => {
@@ -112,7 +134,6 @@ const Game = () => {
                         Authorization: `Bearer ${token}`
                     }
                 })
-                console.log(data)
                 const playlistData = {
                     name: data.name,
                     id: data.id,
@@ -135,7 +156,6 @@ const Game = () => {
                         Authorization: `Bearer ${token}`
                     }
                 })
-                console.log(data)
                 const trackData = data.items.map((track) => ({
                     id: track.track.id,
                     name: track.track.name,
@@ -238,6 +258,7 @@ const Game = () => {
 
         const myFunction = () =>{
             console.log(curratedPlaylist)
+            console.log(publicPlaylistData)
         };
         
        return (
@@ -371,7 +392,7 @@ const Game = () => {
             onHide={() => setAnswerModal(false)}
             className="answer-modal"
             >
-                <Modal.Header className="d-flex align-items-center justify-content-center text-center dark-modal" closeButton>
+                <Modal.Header className="d-flex align-items-center justify-content-center text-center dark-modal">
                     <Modal.Title className="d-flex align-items-center justify-content-center text-center">
                         <h2 className={answerStatus == "Correct" ? "correct-text" : "incorrect-text"}>
                             {answerStatus}
@@ -443,7 +464,7 @@ const Game = () => {
             show={resultsModal}
             onHide={() => setResultsModal(false)}
             className="results-modal">
-                <Modal.Header className="d-flex align-items-center justify-content-center text-center dark-modal" closeButton>
+                <Modal.Header className="d-flex align-items-center justify-content-center text-center dark-modal">
                     <Modal.Title className="d-flex align-items-center justify-content-center text-center">
                         <h2>Your Results</h2>
                     </Modal.Title>
@@ -467,7 +488,7 @@ const Game = () => {
                     </Row>
                 </Modal.Body>
             </Modal>
-            
+
             <Modal
             size="lg"
             show={instructionsModal}

@@ -19,7 +19,7 @@ const PlaylistSelectorModal = ({playlistData, setPlaylistID, setRunPlaylistSearc
 
     return (
         <>
-            <Modal.Header className="d-flex align-items-center justify-content-center text-center dark-modal" closeButton>
+            <Modal.Header className="d-flex align-items-center justify-content-center text-center dark-modal">
                 <Modal.Title className="d-flex align-items-center justify-content-center text-center">
                     <h2>Select a Playlist</h2>
                 </Modal.Title>
