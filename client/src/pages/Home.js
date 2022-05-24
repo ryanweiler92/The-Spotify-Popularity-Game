@@ -136,7 +136,7 @@ const Home = () => {
 
     return (
         
-        <Container className="mx-auto mt-4">
+        <Container className="mx-auto mt-4" id="background-pic">
         <Row>
             <Button onClick={myFunction} className="gradient-button">My Button</Button>
               {!token ?

@@ -115,10 +115,10 @@ const UserData = ( {userData, topArtistData, playlistData, myToken} ) => {
                     )
                 })}
             </Row>
-            <Row className="centered-row mt-5">
+            {/* <Row className="centered-row mt-5">
                 <h2>Your Playlists</h2>
-            </Row>
-            <Row className="centered-row align-items-stretch">
+            </Row> */}
+            {/* <Row className="centered-row align-items-stretch">
                 {playlists?.map((playlist) => {
                     return (
                         <Col className = "col-sm-5 col-md-3 col-lg-2, col-xl-2 mt-4">
@@ -149,7 +149,7 @@ const UserData = ( {userData, topArtistData, playlistData, myToken} ) => {
                         </Col>
                     )
                 })}
-            </Row>
+            </Row> */}
             <Row className="centered-row mt-3">
                 <Button onClick={myFunction}>Button Man</Button>
             </Row>

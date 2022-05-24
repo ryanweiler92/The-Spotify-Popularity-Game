@@ -341,7 +341,7 @@ const Game = () => {
                 <Col lg="3" md="3" sm="3">
                 </Col>
             </Row>
-            <Container className="game-container mt-4 mb-4">
+            <Container className="game-container mt-4 pb-4">
                 <Row>
                     <Col>
                         <Row>

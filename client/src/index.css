@@ -1,5 +1,5 @@
 :root {
-  --gradient: linear-gradient(to left top, #2AF598 10%, #009EFD 90%) !important;
+  --gradient: linear-gradient(to left top, #F5EAE3 10%, #BD764C 90%) !important;
   --correct: linear-gradient(to left top, #2EB62C 10%, #83D475 90%) !important;
 }
 
@@ -7,6 +7,17 @@ body {
   font-family: 'Lato';
   color: rgb(250, 250, 250, 0.8);
   background: #111 !important;
+}
+
+#root{
+  background-image: url("./assets/images/concert7.png");
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+}
+
+html, body{
+  
 }
 
 .small {
@@ -26,7 +37,7 @@ body {
 }
 
 .navbar-brand:hover{
-  font-size: 50px;
+  font-size: 45px;
 }
 
 #spotify-logo-header{
@@ -79,7 +90,7 @@ body {
 }
 
 .gradient-text {
-  background: -webkit-linear-gradient(#2AF598, #009EFD) !important;
+  background: -webkit-linear-gradient(#F5EAE3, #BD764C) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
 }
@@ -89,15 +100,15 @@ body {
 }
 
 .gradient-border{
-  border-image: linear-gradient(45deg, #2AF598, #009EFD) 1;
+  border-image: linear-gradient(45deg, #F5EAE3, #BD764C) 1;
   border-style: solid;
-  border-width: 4px;
+  border-width: 2px;
 }
 
 .gradient-border-bottom{
   border: 0px;
   border-bottom: 4px solid;
-  border-image: linear-gradient(45deg, #2AF598, #009EFD) 1;
+  border-image: linear-gradient(45deg, #F5EAE3, #BD764C) 1;
   border-image-slice: 1;
 }
 
@@ -107,14 +118,14 @@ body {
 
 .list-group-item{
   background-color: #222;
-  border-image: linear-gradient(45deg, #2AF598, #009EFD) 1;
+  border-image: linear-gradient(45deg, #F5EAE3, #BD764C) 1;
   border-style: solid;
   border-width: 4px;
   font-size: 20px;
 }
 
 .list-group{
-  border-image: linear-gradient(45deg, #2AF598, #009EFD) 1;
+  border-image: linear-gradient(45deg, #F5EAE3, #BD764C) 1;
   border-style: solid;
   border-width: 2px;
   margin-top: 10px;
@@ -123,9 +134,9 @@ body {
 
 .top-artist-cards{
   background: #222;
-  border-image: linear-gradient(45deg, #2AF598, #009EFD) 1;
+  border-image: linear-gradient(45deg, #F5EAE3, #BD764C) 1;
   border-style: solid;
-  border-width: 4px;
+  border-width: 2px;
   color: rgba(250, 250, 250, 0.8);
   margin-bottom: 2rem;
 }
@@ -146,7 +157,7 @@ body {
 }
 
 .top-artist-cards:hover{
-  color: #2AF598;
+  color: #F5EAE3;
   box-shadow: 0px 15px 26px rgba(250, 250, 250, 0.8);
   -webkit-transition: all 0.2s ease-in;
   -moz-transition: all 0.2s ease-in;
@@ -159,7 +170,7 @@ body {
 
 .my-playlists-card{
   background: #222;
-  border-image: linear-gradient(45deg, #2AF598, #009EFD) 1;
+  border-image: linear-gradient(45deg, #F5EAE3, #BD764C) 1;
   border-style: solid;
   border-width: 4px;
   color: rgba(250, 250, 250, 0.8);
@@ -179,7 +190,7 @@ body {
 }
 
 .my-playlists-card:hover{
-  color: #2AF598;
+  color: #F5EAE3;
   box-shadow: 0px 15px 26px rgba(250, 250, 250, 0.8);
   -webkit-transition: all 0.2s ease-in;
   -moz-transition: all 0.2s ease-in;
@@ -308,11 +319,12 @@ iframe{
 }
 
 .scoreboard{
-  border-image: linear-gradient(45deg, #2AF598, #009EFD) 1;
+  border-image: linear-gradient(45deg, #F5EAE3, #BD764C) 1;
   border-style: solid;
   border-width: 4px;
   color: rgba(250, 250, 250, 0.8);
   margin-right: 20px;
+  background: #222
 }
 
 #scoreboard-title p{
@@ -320,7 +332,7 @@ iframe{
 }
 
 #scoreboard-title{
-  border-image: linear-gradient(45deg, #2AF598, #009EFD) 1;
+  border-image: linear-gradient(45deg, #F5EAE3, #BD764C) 1;
   border-bottom: solid;
   border-width: 4px;
 }
@@ -331,13 +343,13 @@ iframe{
 }
 
 .my-bottom-border{
-  border-image: linear-gradient(45deg, #2AF598, #009EFD) 1;
+  border-image: linear-gradient(45deg, #F5EAE3, #BD764C) 1;
   border-bottom: solid;
   border-width: 4px;
 }
 
 .my-right-border{
-  border-image: linear-gradient(45deg, #2AF598, #009EFD) 1;
+  border-image: linear-gradient(45deg, #F5EAE3, #BD764C) 1;
   border-right: solid;
   border-width: 4px;
 }
@@ -500,8 +512,8 @@ iframe{
 }
 
 .next-button{
-background:    #2af598;
-background:    linear-gradient(#2af598, #009efd);
+background:    #F5EAE3;
+background:    linear-gradient(#F5EAE3, #BD764C);
 border:        3px solid #f3f3f3;
 border-radius: 11px;
 padding:       20px 45px;
@@ -521,6 +533,30 @@ font-size: 30px;
   display:       inline-block;
   text-align:    center;
   font-size: 30px;
+  }
+
+  .linkedin-logo{
+    height: 75px;
+    width: 75px;
+   }
+
+   .github-img{
+    height: 75px;
+    width: 75px;
+  }
+
+  footer {
+    position: absolute;
+    
+    width: 100%;
+    border-top: 3px solid;
+    border-image-slice: 1;
+    background: var(--gradient) !important;
+    -webkit-text-fill-color: transparent !important;
+    -webkit-background-clip: text !important;
+    border-image-source:  var(--gradient) !important;
+    height: 100px;
+    
   }
 
 @media screen and (max-width: 768px){

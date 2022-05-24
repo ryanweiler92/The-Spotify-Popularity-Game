@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home'
 import Game from './pages/Game'
 import Navigation from './components/Navigation'
+import Footer from './components/Footer'
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -37,6 +38,8 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route exact path="/game" component={Game} />
       </Switch>
+      <Footer />
+      
     </Router>
   </ApolloProvider>
   );
