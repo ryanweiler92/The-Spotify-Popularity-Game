@@ -13,15 +13,14 @@ const Navigation = () => {
                     The Spotify Popularity Game
                    <img src={spotifyLogo} id="spotify-logo-header"/>
                 </Navbar.Brand>
-                <Navbar.Toggle aria-controls='navbar' />
-                <Navbar.Collapse id="navbar">
+                <Navbar id="navbar">
                     <Nav className="ml-auto">
                         <Nav.Link as={Link} to="/game" className="gradient-text">
                             Play The Game!
                             <img src={gameLogo} id="game-logo-header" />
                             </Nav.Link>
                     </Nav>
-                </Navbar.Collapse>
+                </Navbar>
             </Container>
         </Navbar>
     );

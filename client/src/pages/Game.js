@@ -295,7 +295,7 @@ const Game = () => {
                 </Col>
                 <Col lg="4" md="4" sm="4" className="scoreboard" >
                         <Row className="d-flex justify-content-center" id="scoreboard-title">
-                            <p>Scoreboard</p>
+                            <p id="pls">Scoreboard</p>
                         </Row>
                         <Row className="my-bottom-border">
                             <Col className="my-right-border d-flex justify-content-center">
@@ -362,6 +362,15 @@ const Game = () => {
                             frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
                             className={roundCount == 0 ? "x-icon-hide" : ""}/>
                         </Row>
+                        <Row className="d-flex justify-content-center">
+                        <p className="text-center d-none info-info">{leftSong.name}</p>
+                        </Row>
+                        <Row className="d-flex justify-content-center">
+                        <p className="text-center d-none info-info">{leftSong.artist}</p>
+                        </Row>
+                        <Row className="d-flex justify-content-center">
+                        <p className="text-center d-none info-info">{leftSong.album}</p>
+                        </Row>
                     </Col>
 
                     <Col>
@@ -382,6 +391,15 @@ const Game = () => {
                             <iframe src={`https://open.spotify.com/embed/track/${rightSong.id}?utm_source=generator`}  
                             frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                             className={roundCount == 0 ? "x-icon-hide" : ""}/>
+                        </Row>
+                        <Row className="d-flex justify-content-center ">
+                        <p className="text-center d-none info-info">{rightSong.name}</p>
+                        </Row>
+                        <Row className="d-flex justify-content-center">
+                        <p className="text-center d-none info-info" >{rightSong.artist}</p>
+                        </Row>
+                        <Row className="d-flex justify-content-center">
+                        <p className="text-center d-none info-info" >{rightSong.album}</p>
                         </Row>
                     </Col>
                 </Row>
@@ -472,7 +490,7 @@ const Game = () => {
                 </Modal.Header>
                 <Modal.Body className="dark-modal m-auto">
                     <Row>
-                        <h4>Congratulations! You made it through round {roundCount - 1} on {chosenPlaylist.name}</h4>
+                        <h4 className="text-center">Congratulations! You made it through round {roundCount - 1} on {chosenPlaylist.name}</h4>
                     </Row>
                     <Row className="mt-3">
                         <Col>
