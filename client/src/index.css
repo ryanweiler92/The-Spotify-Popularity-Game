@@ -49,6 +49,10 @@ body {
   font-size: 30px;
 }
 
+.login-link{
+  margin-right: 20px;
+}
+
 .nav-link:hover{
   font-size: 35px;
 }

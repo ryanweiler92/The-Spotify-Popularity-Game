@@ -131,9 +131,7 @@ const Home = () => {
     //END SPOTIFY API STUFF
 
     const myFunction = () => {
-        console.log(userData)
-        console.log(topArtistData)
-        console.log(playlistData)
+       console.log(token)
     }
 
     return (
