@@ -597,6 +597,10 @@ font-size: 30px;
     min-height: 500px;
   }
 
+  #spotify-button{
+    font-size: 25px !important;
+  }
+
 @media screen and (max-width: 768px){
 
   .navbar-brand{

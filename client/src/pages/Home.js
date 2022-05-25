@@ -3,6 +3,8 @@ import {Container, Row, Col, Form, Button, Card, CardColumns, Jumbotron} from 'r
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import UserData from '../components/UserData.js'
+import {useMutation} from '@apollo/client';
+import {ADD_USER} from '../utils/mutations'
 
 const Home = () => {
 
@@ -13,7 +15,6 @@ const Home = () => {
     const RESPONSE_TYPE = "token"
 
     const [token, setToken] = useState("");
-    const [searchKey, setSearchKey] = useState("");
     const [artists, setArtists] = useState([]);
     //name, id, uri, image, folowers, href
     const [userData, setUserData] = useState([]);
@@ -40,30 +41,6 @@ const Home = () => {
     window.localStorage.removeItem("token")
     }
 
-    // const searchArtists = async (e) => {
-    //     e.preventDefault()
-    //     const {data} = await axios.get("https://api.spotify.com/v1/search", {
-    //         headers: {
-    //             Authorization: `Bearer ${token}`
-    //         },
-    //         params: {
-    //             q: searchKey,
-    //             type: "artist"
-    //         }
-    //     })
-    //     console.log({data})
-    //     setArtists(data.artists.items)
-    // };
-
-    // const renderArtists = () => {
-    //     return artists.map(artist => (
-    //         <div key={artist.id}>
-    //             {artist.images.length ? <img width={"100%"} src={artist.images[0].url} alt=""/> : <div>No Image</div>}
-    //             {artist.name}
-    //         </div>
-    //     ))
-    // };
-
     //search for user data based on who is logged in
     //Searches once the token state has set
     useEffect(() => {
@@ -73,6 +50,7 @@ const Home = () => {
                 Authorization: `Bearer ${token}`
             }
         })
+        console.log(data)
         const userData = {
             name: data.display_name,
             id: data.id,
@@ -85,6 +63,26 @@ const Home = () => {
     };
     searchMe();
     }, [token])
+
+    const [userAdd, { error }] = useMutation(ADD_USER);
+    const [myMutationResponse, setMyMutationResponse] = useState([])
+
+    //add user to database if not already
+    useEffect(() => {
+        console.log("userdata is", userData.name)
+    const addUser = async () => {
+        try{
+            const mutationResponse = await userAdd({
+                variables: { username: userData.name, id: userData.id, image: userData.image},
+            });
+            const myResponse = mutationResponse.data
+            setMyMutationResponse(myResponse)
+        } catch (e) {
+            console.error(e);
+        }
+        }
+        addUser();
+    }, [userData])
 
     //get users top artists
     useEffect(() => {
@@ -101,7 +99,6 @@ const Home = () => {
                 followers: artist.followers.total,
                 id: artist.id
             }))
-            console.log(data)
             setTopArtistData(topArtistData)
         };
         searchMeTopArtists();
@@ -115,7 +112,6 @@ const Home = () => {
                         Authorization: `Bearer ${token}`
                     }
                 })
-                console.log(data)
                 const playlistData = data.items.map((playlist) => ({
                     name: playlist.name,
                     images: playlist.images,
@@ -131,19 +127,24 @@ const Home = () => {
     //END SPOTIFY API STUFF
 
     const myFunction = () => {
-       console.log(token)
+       console.log(userData)
+       console.log(myMutationResponse)
+
     }
 
     return (
         
         <Container className="mx-auto mt-4 pb-4" id="background-pic">
+            <Row>
+                <Button onClick={myFunction}>ButtonMan</Button>
+            </Row>
         <Row className="d-flex justify-content-end">
             {/* <Button onClick={myFunction} className="gradient-button">My Button</Button> */}
               {!token ?
                     <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>
                         <Button className="gradient-button">Login to Spotify</Button>
                         </a>
-                    : <Button onClick={logout} className="gradient-button">Logout of Spotify</Button>}
+                    : <Button onClick={logout} className="gradient-button" id="spotify-button">Logout of Spotify</Button>}
         </Row>
         {!token ?
         <Row className="blank-row">

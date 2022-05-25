@@ -18,6 +18,20 @@ const resolvers = {
             return await User.find({})
         }
     },
+    Mutation: {
+        addUser: async (parent, args) => {
+            const user = await User.create(args);
+      
+            return { user };
+          },
+          removeUser: async (parent, {username}) => {
+              const deletedUser = await User
+              .findOneAndDelete(
+                  {username: username}
+              )
+              return deletedUser
+          }
+    }
 }
 
 
