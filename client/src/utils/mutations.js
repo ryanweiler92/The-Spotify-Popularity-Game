@@ -12,3 +12,19 @@ mutation addUser($username: String!, $id: String!, $image: String!) {
 }
 `
 
+export const ADD_SCORE = gql`
+mutation addScore($score: String!, $playlistName: String!, $playlistID: String!, 
+                  $playlistImage: String!, $username: String!, $userID: String!) {
+    addScore(score: $score, playlistName: $playlistName, playlistID: $playlistID, 
+             playlistImage: $playlistImage, username: $username, userID: $userID){
+    score {
+        score
+        playlistName
+        playlistImage
+        username
+        userID
+        createdAt
+        }
+    }
+}
+`
