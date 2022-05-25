@@ -75,7 +75,7 @@ const UserData = ( {userData, topArtistData, playlistData, myToken} ) => {
         </div>
         
         <div>
-            <Row className="centered-row mt-3">
+            <Row className="centered-row mt-3 mb-3">
                 <h2>Your Top Artists</h2>
             </Row>
             <Row>
@@ -150,9 +150,6 @@ const UserData = ( {userData, topArtistData, playlistData, myToken} ) => {
                     )
                 })}
             </Row> */}
-            <Row className="centered-row mt-3">
-                <Button onClick={myFunction}>Button Man</Button>
-            </Row>
         </div>
         <Modal
         size="lg"

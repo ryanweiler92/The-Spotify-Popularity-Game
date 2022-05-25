@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Container, Row, Col, Form, Button, Card, CardColumns} from 'react-bootstrap'
+import {Container, Row, Col, Form, Button, Card, CardColumns, Jumbotron} from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import UserData from '../components/UserData.js'
@@ -136,17 +136,26 @@ const Home = () => {
 
     return (
         
-        <Container className="mx-auto mt-4" id="background-pic">
-        <Row>
-            <Button onClick={myFunction} className="gradient-button">My Button</Button>
+        <Container className="mx-auto mt-4 pb-4" id="background-pic">
+        <Row className="d-flex justify-content-end">
+            {/* <Button onClick={myFunction} className="gradient-button">My Button</Button> */}
               {!token ?
                     <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>
                         <Button className="gradient-button">Login to Spotify</Button>
                         </a>
-                    : <Button onClick={logout} className="gradient-button">Logout</Button>}
+                    : <Button onClick={logout} className="gradient-button">Logout of Spotify</Button>}
         </Row>
-        <UserData userData={userData} topArtistData={topArtistData} playlistData={playlistData} myToken={token} />
+        {!token ?
+        <Row className="blank-row">
+            <Jumbotron>
+                <h1>Welcome to The Spotify Popularity Game!</h1>
+                <p>Please login to Spotify using the link in the top right corner.</p>
+                <p>You can also make an account to keep track of and post your scores to the leaderboards.</p>
+            </Jumbotron>
 
+        </Row>
+        : <UserData userData={userData} topArtistData={topArtistData} playlistData={playlistData} myToken={token} /> 
+        }
 
         
         

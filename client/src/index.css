@@ -3,8 +3,20 @@
   --correct: linear-gradient(to left top, #2EB62C 10%, #83D475 90%) !important;
 }
 
+@font-face {
+  font-family: Proxima Nova;
+  src: url("./assets/images/Proxima-Nova-Font.otf") format("opentype");
+}
+
+@font-face {
+  font-family: Proxima Nova;
+  font-weight: bold;
+  src: url("./assets/images/Proxima-Nova-Font.otf") format("opentype");
+}
+
 body {
-  font-family: 'Lato';
+  font-family: Proxima Nova;
+  font-weight: bolder;
   color: rgb(250, 250, 250, 0.8);
   background: #111 !important;
 }
@@ -20,6 +32,28 @@ html, body{
   
 }
 
+.blank-row{
+  height: 1000px;
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.jumbotron{
+  height: 400px;
+  background-color: #222;
+  background-image: url("./assets/images/spirit2.png");
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 40px 5px white;
+  border-radius: 20px;
+  
+}
+
+.jumbotron p {
+  font-size: 19px;
+  
+}
 .small {
   font-weight: 300;
   font-style: italic;
@@ -33,7 +67,7 @@ html, body{
 
 .navbar-brand{
   font-weight: bolder;
-  font-size: 35px;
+  font-size: 30px;
 }
 
 .navbar-brand:hover{
@@ -41,8 +75,8 @@ html, body{
 }
 
 #spotify-logo-header{
-  height: 85px;
-  width: 85px;
+  height: 70px;
+  width: 70px;
 }
 
 #navbar-brand:hover #spotify-logo-header{
@@ -57,7 +91,7 @@ html, body{
 }
 
 .nav-link{
-  font-size: 30px;
+  font-size: 25px;
 }
 
 .login-link{
@@ -328,7 +362,7 @@ iframe{
 }
 
 #scoreboard-title p{
-  font-size: 32px;
+  font-size: 25px;
 }
 
 #scoreboard-title{
@@ -338,8 +372,8 @@ iframe{
 }
 
 .scoreboard p{
-  font-size: 30px;
-  padding-top: 10px;
+  font-size: 25px;
+  padding-top: 5px;
 }
 
 .my-bottom-border{
@@ -557,6 +591,10 @@ font-size: 30px;
     border-image-source:  var(--gradient) !important;
     height: 100px;
     
+  }
+
+  .game-container{
+    min-height: 500px;
   }
 
 @media screen and (max-width: 768px){

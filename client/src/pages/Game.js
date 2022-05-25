@@ -263,7 +263,6 @@ const Game = () => {
         
        return (
            <>
-           <Button onClick={myFunction}>Button Man</Button>
            <Modal
             size="lg"
             show={showPlaylistModal}
@@ -277,7 +276,7 @@ const Game = () => {
                     setShowPlaylistModal={setShowPlaylistModal}/>
             </Modal>
 
-            <Row className="d-flex justify-content-between align-items-center">
+            <Row className="d-flex justify-content-between align-items-center mt-3">
                 <Col lg="3" md="3" sm="3" className="overlay-box">
                 <img src={chosenPlaylistImage} id="game-playlist-image" 
                 className={chosenPlaylistImage == "" ? "x-icon-hide" : "img-fluid gradient-border"}/>
