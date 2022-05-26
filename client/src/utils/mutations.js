@@ -21,6 +21,7 @@ mutation addScore($score: String!, $playlistName: String!, $playlistID: String!,
         score
         playlistName
         playlistImage
+        playlistID
         username
         userID
         createdAt

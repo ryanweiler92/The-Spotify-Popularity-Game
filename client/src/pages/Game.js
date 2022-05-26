@@ -3,6 +3,8 @@ import {Container, Row, ListGroup, Col, Tab, Form, Button, Card, CardColumns, Mo
 import axios from 'axios';
 import PlaylistSelectorModal from '../components/PlaylistSelectorModal'
 import xIcon from '../assets/images/x.png'
+import {useMutation} from '@apollo/client';
+import {ADD_SCORE} from '../utils/mutations'
 
 const Game = () => {
 
@@ -249,16 +251,38 @@ const Game = () => {
             setIncorrectCount(0);
             setResultsModal(false);
             setShowPlaylistModal(true);
+        };
+
+        const [addingScore, {error}] = useMutation(ADD_SCORE);
+        const [myMutationResponse, setMyMutationResponse] = useState([])
+
+        //add final score
+        const addScore = async () => {
+            try{
+                const mutationResponse = await addingScore({
+                    variables: { score: roundCount.toString(), playlistName: chosenPlaylist.name,
+                                 playlistID: chosenPlaylist.id, playlistImage: chosenPlaylistImage,
+                                 username: userData.name, userID: userData.id}
+                });
+                const myResponse = mutationResponse.data
+                setMyMutationResponse(myResponse)
+            } catch (e) {
+                console.error({error});
+            }
         }
 
         // const startGameBtn = document.querySelector("start-game-btn")
         const myStyle = {
             display: 'none'
-        }
+        };
 
         const myFunction = () =>{
-            console.log(curratedPlaylist)
-            console.log(publicPlaylistData)
+            console.log(roundCount -1)
+            console.log(chosenPlaylist.name)
+            console.log(chosenPlaylist.id)
+            console.log(chosenPlaylistImage)
+            console.log(userData.name)
+            console.log(userData.id)
         };
         
        return (
@@ -277,6 +301,7 @@ const Game = () => {
             </Modal>
 
             <Row className="d-flex justify-content-between align-items-center mt-3">
+                <Button onClick={myFunction}>Buttonman</Button>
                 <Col lg="3" md="3" sm="3" className="overlay-box">
                 <img src={chosenPlaylistImage} id="game-playlist-image" 
                 className={chosenPlaylistImage == "" ? "x-icon-hide" : "img-fluid gradient-border"}/>
@@ -499,7 +524,8 @@ const Game = () => {
                         </Col>
                         <Col>
                         <Button 
-                        className="post-score-button">
+                        className="post-score-button"
+                        onClick={addScore}>
                             Post Score?
                         </Button>
                         </Col>
