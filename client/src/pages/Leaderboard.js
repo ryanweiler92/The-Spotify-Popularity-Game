@@ -27,19 +27,19 @@ const Leaderboard = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {leaderboardData?.scores?.map((score) => {
+                    {leaderboardData?.scores?.map((score, index) => {
                         return (
                             <tr>
-                                <td></td>
-                                <td>{score.username}</td>
-                                <td>{score.score}</td>
-                                <td>{score.playlistName}</td>
+                                <td className="rank align-middle">{index + 1}</td>
+                                <td className="rank align-middle">{score.username}</td>
+                                <td className="rank align-middle">{score.score}</td>
+                                <td className="rank align-middle">{score.playlistName}</td>
                                 <td className="d-flex justify-content-center">
                                     <img src={score.playlistImage} 
                                     className="leaderboard-img" />
                                 </td>
                             </tr>
-                        )
+                        ) 
                     })}
 
                 </tbody>

@@ -64,6 +64,8 @@ const Home = () => {
     searchMe();
     }, [token])
 
+
+    //mutation for adding user to db
     const [userAdd, { error }] = useMutation(ADD_USER);
     const [myMutationResponse, setMyMutationResponse] = useState([])
 
@@ -134,7 +136,7 @@ const Home = () => {
 
     return (
         
-        <Container className="mx-auto mt-4 pb-4" id="background-pic">
+        <Container className="mx-auto mt-4 pb-4 " id="background-pic">
             <Row>
                 <Button onClick={myFunction}>ButtonMan</Button>
             </Row>

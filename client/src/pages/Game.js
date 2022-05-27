@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import {Container, Row, ListGroup, Col, Tab, Form, Button, Card, CardColumns, Modal, Accordion} from 'react-bootstrap'
+import {Container, Nav, Alert, Row, ListGroup, Col, Tab, Form, Button, Card, CardColumns, Modal, Accordion} from 'react-bootstrap'
 import axios from 'axios';
 import PlaylistSelectorModal from '../components/PlaylistSelectorModal'
 import xIcon from '../assets/images/x.png'
 import {useMutation} from '@apollo/client';
 import {ADD_SCORE} from '../utils/mutations'
+import { Redirect } from 'react-router-dom';
+import { Link, HashRouter } from 'react-router-dom'
 
 const Game = () => {
 
@@ -253,10 +255,12 @@ const Game = () => {
             setCurratedPlaylist([])
             setChosenPlaylistTracks([])
             setShowPlaylistModal(true);
+
         };
 
         const [addingScore, {error}] = useMutation(ADD_SCORE);
         const [myMutationResponse, setMyMutationResponse] = useState([])
+        
 
         //add final score
         const addScore = async () => {
@@ -271,20 +275,28 @@ const Game = () => {
             } catch (e) {
                 console.error({error});
             }
-        }
+            setStyle(myStyle)
+            setOtherStyle(myOtherStyle)
+        };
+
+        const [postScoreText, setPostScoreText] = useState("Post Score")
+        
+
 
         // const startGameBtn = document.querySelector("start-game-btn")
         const myStyle = {
             display: 'none'
         };
 
+        const myOtherStyle = {
+            
+        }
+
+        const [useStyle, setStyle] = useState(myOtherStyle)
+        const [useOtherStyle, setOtherStyle] = useState(myStyle)
+
         const myFunction = () =>{
-            console.log(roundCount)
-            console.log(chosenPlaylist.name)
-            console.log(chosenPlaylist.id)
-            console.log(chosenPlaylistImage)
-            console.log(userData.name)
-            console.log(userData.id)
+            console.log('nothing')
         };
         
        return (
@@ -294,6 +306,8 @@ const Game = () => {
             show={showPlaylistModal}
             onHide={() => setShowPlaylistModal(false)}
             className="top-tracks-modal"
+            backdrop="static"
+            keyboard="false"
             >
                 <PlaylistSelectorModal 
                     playlistData={playlistData}
@@ -310,7 +324,7 @@ const Game = () => {
                 </Col>
                 <Col lg="3" md="3" sm="3">
                     <Row>
-                    <h1 className="gradient-text text-center">The Spotify Popularity Game</h1>
+                    <h1 className="gradient-text text-center" id="game-title">The Spotify Popularity Game</h1>
                     </Row>
                     <Row className="d-flex justify-content-center mt-3">
                         <Button 
@@ -436,6 +450,8 @@ const Game = () => {
             show={answerModal}
             onHide={() => setAnswerModal(false)}
             className="answer-modal"
+            backdrop="static"
+            keyboard="false"
             >
                 <Modal.Header className="d-flex align-items-center justify-content-center text-center dark-modal">
                     <Modal.Title className="d-flex align-items-center justify-content-center text-center">
@@ -508,7 +524,9 @@ const Game = () => {
             size="lg"
             show={resultsModal}
             onHide={() => setResultsModal(false)}
-            className="results-modal">
+            className="results-modal"
+            backdrop="static"
+            keyboard="false">
                 <Modal.Header className="d-flex align-items-center justify-content-center text-center dark-modal">
                     <Modal.Title className="d-flex align-items-center justify-content-center text-center">
                         <h2>Your Results</h2>
@@ -516,20 +534,39 @@ const Game = () => {
                 </Modal.Header>
                 <Modal.Body className="dark-modal m-auto">
                     <Row>
-                        <h4 className="text-center">Congratulations! You made it through round {roundCount - 1} on {chosenPlaylist.name}</h4>
+                        <h4 className="text-center">Congratulations! You made it through round {roundCount - 1} on {chosenPlaylist.name}.</h4>
                     </Row>
                     <Row className="mt-3">
-                        <Col>
-                        <Button className="next-button"
-                        onClick={resetGame}
-                        >Play Again?</Button>
-                        </Col>
-                        <Col>
+                        <Col className="d-flex align-items-center">
                         <Button 
-                        className="post-score-button"
-                        onClick={addScore}>
-                            Post Score?
+                        onClick={resetGame}
+                        variant="success"
+                        className="selection-btns"
+                        id="play-again">
+                            Play Again?
                         </Button>
+                        </Col>
+                        <Col className="d-flex align-items-center">
+                        <Button 
+                        variant="primary"
+                        className="selection-btns"
+                        style={useStyle}
+                        onClick={addScore}
+                        id="post-score">
+                            Post Score
+                        </Button>
+                        </Col>
+                        <Col className="d-flex align-items-center">
+                        <Nav.Link                         
+                        as={Link}
+                        to="/leaderboard">
+                        <Button 
+                        variant="primary"
+                        className="selection-btns"
+                        >
+                            Leaderboard
+                        </Button>
+                        </Nav.Link>
                         </Col>
                     </Row>
                 </Modal.Body>
