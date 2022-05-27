@@ -250,6 +250,8 @@ const Game = () => {
             setCorrectCount(0);
             setIncorrectCount(0);
             setResultsModal(false);
+            setCurratedPlaylist([])
+            setChosenPlaylistTracks([])
             setShowPlaylistModal(true);
         };
 
@@ -277,7 +279,7 @@ const Game = () => {
         };
 
         const myFunction = () =>{
-            console.log(roundCount -1)
+            console.log(roundCount)
             console.log(chosenPlaylist.name)
             console.log(chosenPlaylist.id)
             console.log(chosenPlaylistImage)
@@ -579,8 +581,8 @@ const Game = () => {
                                 in the incorrect box of the scoreboard.
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="#link4">
-                                Your final score will represent the last round you correctly answered. To post your
-                                scores you will need to make an account. Then you will be able to post your scores to the 
+                                Your final score will represent the last round you finished. Once you have used
+                                all three of your lives you will be able to post your scores to the 
                                 leaderboards and see other users scores.
                                 </Tab.Pane>
                             </Tab.Content>

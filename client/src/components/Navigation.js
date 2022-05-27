@@ -21,8 +21,8 @@ const Navigation = () => {
                 </Navbar.Brand>
                 <Navbar id="navbar">
                     <Nav className="ml-auto d-flex align-items-center">
-                        <Nav.Link className="gradient-text login-link" onClick={() => setShowModal(true)}>
-                            Login/Sign Up
+                        <Nav.Link as={Link} to="/leaderboard" className="gradient-text login-link" >
+                            Leaderboard
                             <img src={login} id="game-logo-header" />
                             </Nav.Link>
                         <Nav.Link as={Link} to="/game" className="gradient-text">

@@ -601,6 +601,27 @@ font-size: 30px;
     font-size: 25px !important;
   }
 
+  #leaderboard-container{
+    min-height: 1000px;
+  }
+
+  th{
+    text-align: center;
+    font-size: 26px;
+  }
+
+  td{
+    text-align: center;
+    font-size: 20px;
+    padding: 5px !important;
+  }
+
+  .leaderboard-img{
+    height: 100px;
+    width: 100px;
+    border: solid white 1px;
+  }
+
 @media screen and (max-width: 768px){
 
   .navbar-brand{

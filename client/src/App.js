@@ -4,6 +4,7 @@ import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home'
 import Game from './pages/Game'
+import Leaderboard from './pages/Leaderboard'
 import Navigation from './components/Navigation'
 import Footer from './components/Footer'
 
@@ -37,6 +38,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/game" component={Game} />
+        <Route exact path="/leaderboard" component={Leaderboard} />
       </Switch>
       <Footer />
       

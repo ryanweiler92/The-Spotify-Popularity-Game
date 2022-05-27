@@ -19,6 +19,7 @@ query scores{
           playlistImage
           username
           userID
+          _id
     }
   }
 `
