@@ -123,28 +123,6 @@ const Home = () => {
         </Row>
         : <UserData userData={userData} topArtistData={topArtistData} playlistData={playlistData} myToken={token} /> 
         }
-
-        
-        
-        
-        
-        
-        
-        
-        {/* <Row>
-            <Col>
-                <form onSubmit={searchArtists}>
-                    <input type="text" onChange={e => setSearchKey(e.target.value)}/>
-                    <button type={"submit"}>Search</button>
-                </form>
-            </Col>
-            <Col>
-            <Button onClick={() => searchMe()}>Search Me</Button>
-            </Col>
-        </Row>
-        <Row>
-        {renderArtists()}
-        </Row> */}
         </Container>
         
     )

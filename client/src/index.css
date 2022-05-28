@@ -871,15 +871,37 @@ font-size: 30px;
     width: 280px;
   }
 
-  figcaption{
+  #brand-div{
+  margin-left: 30px;
+  }
+
+
+  figcaption h3{
     display: none;
   }
 
-  figcaption:hover{
+  figcaption:hover h3{
     display: none;
   }
 
+  #logout-col{
+    display: flex;
+    justify-content: center;
+  }
+
+  #spotify-button{
+    font-size: 17px !important;
+    margin-left: 5px;
+  }
+
+  #navbar{
+    padding: 0px;
+  }
   .navbar-brand{
+    font-size: 20px;
+  }
+
+  .navbar-brand:hover{
     font-size: 20px;
   }
 
@@ -971,4 +993,24 @@ font-size: 30px;
   .post-score-button{
     font-size: 20px;
   }
+
+  #leaderboard-container{
+    margin: 0px;
+    padding: 0px;
+  }
+
+  #leaderboard-container th{
+    font-size: 15px;
+  }
+
+  #leaderboard-container td{
+    font-size: 15px;
+  }
+
+  .leaderboard-img{
+    height: 80px;
+    width: 80px;
+  }
+
+
 }

@@ -64,7 +64,7 @@ const PlaylistSelectorModal = ({playlistData, setPlaylistID, setRunPlaylistSearc
                             <Col>
                             <p className="text-center">Songs: {playlist.numberSongs}</p>
                             </Col>
-                            <Col>
+                            <Col className="mb-2">
                             <Button 
                             value={playlist.id} 
                             className="gradient-button gradient-border"

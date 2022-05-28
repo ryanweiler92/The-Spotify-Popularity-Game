@@ -559,7 +559,7 @@ const Game = () => {
                            <i className="ri-check-line my-icon"></i>
                         </button>
                         </Col>
-                        <Col className="d-flex align-items-center">
+                        <Col className="d-flex justify-content-center align-items-center">
                         <Nav.Link                         
                         as={Link}
                         to="/leaderboard">

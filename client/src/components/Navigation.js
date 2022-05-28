@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Container, Nav, Navbar, Modal, Tab, Button} from 'react-bootstrap'
+import {Container, Nav, Navbar, Modal, Col, Row, Tab, Button} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import spotifyLogo from "../assets/images/spotify-logo.svg"
 import gameLogo from "../assets/images/game-logo.png"
@@ -21,6 +21,7 @@ const Navigation = () => {
     //SPOTIFY API STUFF
     const CLIENT_ID = "f268301c1b63456b81cf1b534073b905"
     const REDIRECT_URI = "https://spotify-popularity-game.herokuapp.com/"
+    // const REDIRECT_URI = "http://localhost:3000"
     const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
     const RESPONSE_TYPE = "token"
 
@@ -48,27 +49,37 @@ const Navigation = () => {
         <>
         <Navbar expand='lg' className="gradient-border-bottom">
             <Container fluid>
+                <div id="brand-div">
                 <Navbar.Brand as={Link} to="/" className="gradient-text">
                     The Spotify Popularity Game
                    <img src={spotifyLogo} id="spotify-logo-header"/>
                 </Navbar.Brand>
+                </div>
                 <Navbar id="navbar">
                     <Nav className="ml-auto d-flex align-items-center">
-                        <Nav.Link as={Link} to="/leaderboard" className="gradient-text login-link" >
+                        <Row className="d-flex justify-content-center">
+                        <Col>
+                        <Nav.Link as={Link} to="/leaderboard" className="gradient-text login-link text-center" >
                             Leaderboard
                             <img src={login} id="game-logo-header" />
                             </Nav.Link>
+                        </Col>
+                        <Col>
                         {!token ? <p></p> :
-                        <Nav.Link as={Link} to="/game" className="gradient-text">
+                        <Nav.Link as={Link} to="/game" className="gradient-text text-center">
                             Play The Game!
                             <img src={gameLogo} id="game-logo-header" />
                             </Nav.Link>
-                        }
+                        } 
+                        </Col>
+                        <Col id="logout-col">
                             {!token ?
                     <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>
                         <Button className="gradient-button gradient-border"><span className="gradient-text">Login to Spotify</span></Button>
                         </a>
-                    : <a><Button onClick={logout} className="gradient-button gradient-border" id="spotify-button"><span className="gradient-text">Logout of Spotify</span></Button></a>}
+                    : <Button onClick={logout} className="gradient-button gradient-border" id="spotify-button"><span className="gradient-text">Logout of Spotify</span></Button>}
+                    </Col>
+                    </Row>
                     </Nav>
                 </Navbar>
             </Container>
