@@ -67,8 +67,11 @@ const PlaylistSelectorModal = ({playlistData, setPlaylistID, setRunPlaylistSearc
                             <Col>
                             <Button 
                             value={playlist.id} 
+                            className="gradient-button gradient-border"
                             onClick={(e) => setPlaylistID(e.target.value)}>
+                                <span className="gradient-text">
                                 Select Playlist
+                                </span>
                             </Button>
                             </Col>
                         </Row> 

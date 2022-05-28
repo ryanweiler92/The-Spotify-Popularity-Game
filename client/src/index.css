@@ -277,8 +277,6 @@ iframe{
 
 .dropdown-toggle{
   background: var(--gradient) !important;
-  -webkit-text-fill-color: transparent !important;
-  -webkit-background-clip: text !important;
   font-size: 20px;
   border: 1px solid var(--gradient) !important;
   font-weight: bold;
@@ -316,15 +314,7 @@ iframe{
   font-size: 20px;
 }
 
-.playlist-selector-items button{
-  background: var(--gradient) !important;
-  -webkit-text-fill-color: transparent !important;
-  -webkit-background-clip: text !important;
-  font-size: 20px;
-  border: 1px solid var(--gradient) !important;
-  font-weight: bold;
-  -webkit-box-decoration-break: clone !important;
-}
+
 
 .playlist-selector-items:hover{
   width: 90%;
