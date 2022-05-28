@@ -871,6 +871,10 @@ font-size: 30px;
     width: 280px;
   }
 
+  figcaption{
+    display: none;
+  }
+
   .navbar-brand{
     font-size: 20px;
   }
