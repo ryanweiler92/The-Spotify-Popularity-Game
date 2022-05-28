@@ -131,6 +131,7 @@ box-decoration-break: clone !important;
 display: inline;
 text-shadow: 0px 0px transparent;
 image-rendering: -webkit-optimize-contrast;
+color: transparent;
 
 
 
@@ -146,6 +147,7 @@ image-rendering: -webkit-optimize-contrast;
   text-shadow: 0px 0px transparent;
   -webkit-text-fill-color: transparent !important;
   image-rendering: -webkit-optimize-contrast;
+  color: transparent;
 }
 
 .gradient-button:hover{
@@ -158,6 +160,7 @@ image-rendering: -webkit-optimize-contrast;
   display: inline;
 text-shadow: 0px 0px transparent;
 image-rendering: -webkit-optimize-contrast;
+color: transparent;
 }
 
 .gradient-text {
