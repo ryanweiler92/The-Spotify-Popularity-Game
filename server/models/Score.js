@@ -5,7 +5,7 @@ const dateFormat = require('../utils/dateFormat')
 const ScoreSchema = new Schema (
     {
         score: {
-            type: String,
+            type: Number,
             required: true
         },
         playlistName: {

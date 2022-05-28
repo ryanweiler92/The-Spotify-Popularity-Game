@@ -8,8 +8,8 @@ const resolvers = {
             return await User.find({})
         },
         scores: async () => {
-            return await Score.find({})
-        }
+            return await Score.find({}).sort( { score: -1 } )
+        },
     },
     Mutation: {
         addUser: async (parent, args) => {
@@ -29,6 +29,13 @@ const resolvers = {
 
               return { score }
           },
+          removeScore: async (parent, {_id}) => {
+              const deletedScore = await Score
+              .findOneAndDelete(
+                  {_id: _id}
+              )
+              return deletedScore
+          }
     }
 }
 

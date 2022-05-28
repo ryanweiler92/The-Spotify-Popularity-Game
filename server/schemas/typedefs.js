@@ -10,6 +10,7 @@ type User {
 
 type Auth {
     user: User
+    score: Score
 }
 
 type Scores {
@@ -24,6 +25,7 @@ type Score {
     username: String
     userID: String
     createdAt: String
+    _id: ID
 }
 
 type Query {
@@ -43,7 +45,8 @@ type Mutation {
         username: String
         userID: String
         createdAt: String
-    ): Scores
+    ): Auth
+    removeScore(_id: ID!): Auth
 }
 
 `
