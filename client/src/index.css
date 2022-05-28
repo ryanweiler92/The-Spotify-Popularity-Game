@@ -121,11 +121,17 @@ html, body{
   text-decoration: none;
   transition: all .4s ease;
   font-size: 20px;
+  -moz-background-clip: text !important;
+  -moz-text-fill-color: transparent !important;
+  -ms-background-clip: text !important;
+  -ms-text-fill-color: transparent !important;
+  background-clip: text;
 -webkit-box-decoration-break: clone !important;
 }
 
 .gradient-button:hover{
   font-size: 25px;
+  -webkit-box-decoration-break: clone !important;
 }
 
 .gradient-text {
@@ -883,6 +889,10 @@ font-size: 30px;
   }
 
 @media screen and (max-width: 768px){
+
+  .jumbotron{
+    width: 280px;
+  }
 
   .navbar-brand{
     font-size: 20px;

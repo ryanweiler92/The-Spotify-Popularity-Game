@@ -116,8 +116,8 @@ const Home = () => {
         {!token ?
         <Row className="blank-row">
             <Jumbotron>
-                <h1>Welcome to The Spotify Popularity Game!</h1>
-                <p>Please login to Spotify using the link in the top right corner.</p>
+                <h1 className="text-center">Welcome to The Spotify Popularity Game!</h1>
+                <p className="text-center">Please login to Spotify using the link in the top right corner.</p>
             </Jumbotron>
 
         </Row>
