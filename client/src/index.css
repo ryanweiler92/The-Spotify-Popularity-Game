@@ -875,6 +875,10 @@ font-size: 30px;
     display: none;
   }
 
+  figcaption:hover{
+    display: none;
+  }
+
   .navbar-brand{
     font-size: 20px;
   }
