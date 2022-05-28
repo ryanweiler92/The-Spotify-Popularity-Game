@@ -53,7 +53,7 @@ const Navigation = () => {
                    <img src={spotifyLogo} id="spotify-logo-header"/>
                 </Navbar.Brand>
                 <Navbar id="navbar">
-                    <Nav className="ml-auto">
+                    <Nav className="ml-auto d-flex align-items-center">
                         <Nav.Link as={Link} to="/leaderboard" className="gradient-text login-link" >
                             Leaderboard
                             <img src={login} id="game-logo-header" />
@@ -66,7 +66,7 @@ const Navigation = () => {
                         }
                             {!token ?
                     <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>
-                        <Button className="gradient-button"><span className="testing123">Login to Spotify   </span></Button>
+                        <button className="gradient-button"><span className="testing123">Login to Spotify</span></button>
                         </a>
                     : <Button onClick={logout} className="gradient-button" id="spotify-button">Logout of Spotify</Button>}
                     </Nav>
