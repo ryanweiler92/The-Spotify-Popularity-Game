@@ -53,7 +53,7 @@ const Navigation = () => {
                    <img src={spotifyLogo} id="spotify-logo-header"/>
                 </Navbar.Brand>
                 <Navbar id="navbar">
-                    <Nav className="ml-auto d-flex align-items-center">
+                    <Nav className="ml-auto">
                         <Nav.Link as={Link} to="/leaderboard" className="gradient-text login-link" >
                             Leaderboard
                             <img src={login} id="game-logo-header" />
