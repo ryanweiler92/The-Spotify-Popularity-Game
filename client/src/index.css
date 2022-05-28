@@ -102,14 +102,14 @@ html, body{
   margin-right: 20px;
 }
 
-.nav-link:hover{
+/* .nav-link:hover{
   font-size: 35px;
-}
+} */
 
-.nav-link:hover #game-logo-header{
+/* .nav-link:hover #game-logo-header{
   height: 55px;
   width: 55px;
-}
+} */
 
 .gradient-button{
   cursor: pointer;
@@ -124,10 +124,10 @@ html, body{
   color: white;
 }
 
-.gradient-button:hover{
+/* .gradient-button:hover{
   font-size: 25px;
   text-decoration: none;
-}
+} */
 
 .gradient-text {
   background: -webkit-linear-gradient(#F5EAE3, #BD764C) !important;
@@ -295,16 +295,8 @@ iframe{
 }
 
 .my-next-btn{
-  background: var(--gradient) !important;
-  -webkit-text-fill-color: transparent !important;
-  -webkit-background-clip: text !important;
   font-size: 30px;
-  border: 5px solid  !important;
   font-weight: bold;
-  transition: all .4s ease;
-  border-image-slice: 1 !important;
-  border-image-source:  var(--gradient) !important;
-  -webkit-box-decoration-break: clone !important;
 }
 
 .playlist-selector-img{
@@ -404,10 +396,10 @@ iframe{
   margin-top: 80px;
 }
 
-.start-game-btn:hover{
+/* .start-game-btn:hover{
   font-size: 40px;
   margin-top: 40px;
-}
+} */
 
 #game-playlist-image{
   max-height: 250px;

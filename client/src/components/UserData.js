@@ -105,8 +105,8 @@ const UserData = ( {userData, topArtistData, playlistData, myToken} ) => {
                                         </ul>
                                     </Row>
                                     <Row className="centered-row mt-3">
-                                        <Button className="gradient-button" value={artist.id} onClick={e => artistSetter(artist.id, artist.name)}>
-                                            View Top Tracks
+                                        <Button className="gradient-button gradient-border" value={artist.id} onClick={e => artistSetter(artist.id, artist.name)}>
+                                        <span className="gradient-text">View Top Tracks</span>
                                             </Button>
                                     </Row>
                                 </Card.Body>

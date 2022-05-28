@@ -323,9 +323,11 @@ const Game = () => {
                     </Row>
                     <Row className="d-flex justify-content-center mt-3">
                         <Button 
-                        className="gradient-button"
+                        className="gradient-button gradient-border"
                         onClick={() => setInstructionsModal(true)}
-                        >See Instructions</Button>
+                        >
+                        <span className="gradient-text">See Instructions</span>
+                        </Button>
                     </Row>
                 </Col>
                 <Col lg="4" md="4" sm="4" className="scoreboard" >
@@ -368,9 +370,11 @@ const Game = () => {
                 <Col lg="5" md="5" sm="5">
                     <Button 
                     onClick={roundHandler}
-                    className="gradient-button start-game-btn"
+                    className="gradient-button gradient-border start-game-btn"
                     style={{display: roundCount != 0 ? 'none' : 'block'}}>
+                        <span className="gradient-text">
                         Start Game
+                        </span>
                     </Button>
                 </Col>
                 <Col lg="3" md="3" sm="3">
@@ -508,9 +512,12 @@ const Game = () => {
                 </Row>
                 <Row className="d-flex justify-content-center align-items-center">
                     <Button 
-                    className="my-next-btn"
-                    onClick={roundHandler}
-                    >Next Round</Button>
+                    className="my-next-btn gradient-border gradient-button"
+                    onClick={roundHandler}>
+                        <span className="gradient-text">
+                        Next Round
+                        </span>
+                        </Button>
                 </Row>
             </Modal.Body>
             </Modal>

@@ -66,9 +66,9 @@ const Navigation = () => {
                         }
                             {!token ?
                     <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>
-                        <Button className="gradient-button gradient-border"><span className="testing123 gradient-text">Login to Spotify</span></Button>
+                        <Button className="gradient-button gradient-border"><span className="gradient-text">Login to Spotify</span></Button>
                         </a>
-                    : <Button onClick={logout} className="gradient-button" id="spotify-button">Logout of Spotify</Button>}
+                    : <a><Button onClick={logout} className="gradient-button gradient-border" id="spotify-button"><span className="gradient-text">Logout of Spotify</span></Button></a>}
                     </Nav>
                 </Navbar>
             </Container>
