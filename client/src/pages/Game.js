@@ -313,7 +313,6 @@ const Game = () => {
             </Modal>
 
             <Row className="d-flex justify-content-between align-items-center mt-3">
-                <Button onClick={myFunction}>Buttonman</Button>
                 <Col lg="3" md="3" sm="3" className="overlay-box">
                 <img src={chosenPlaylistImage} id="game-playlist-image" 
                 className={chosenPlaylistImage == "" ? "x-icon-hide" : "img-fluid gradient-border"}/>
