@@ -114,10 +114,10 @@ html, body{
 .gradient-button{
   border: 5px solid;
   border-image-slice: 1;
-  background: var(--gradient) !important;
+  background: linear-gradient(to left top, #F5EAE3 10%, #BD764C 90%) !important;
   -webkit-text-fill-color: transparent !important;
   -webkit-background-clip: text !important;
-  border-image-source:  var(--gradient) !important; 
+  border-image-source:  linear-gradient(to left top, #F5EAE3 10%, #BD764C 90%) !important; 
   text-decoration: none;
   transition: all .4s ease;
   font-size: 20px;
