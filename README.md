@@ -3,7 +3,7 @@
 
 ## Links
 * Repository Link: [The-Spotify-Popularity-Game](https://github.com/ryanweiler92/The-Spotify-Popularity-Game)
-* Application Link: [Crown-Gaming](https://crown-gaming.herokuapp.com/)
+* Application Link: [Crown-Gaming](https://spotify-popularity-game.herokuapp.com/)
 * For any additional questions please reach out to ryanweiler92@gmail.com
 
 ## Description
