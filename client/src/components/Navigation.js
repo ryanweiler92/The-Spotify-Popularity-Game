@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import {Container, Nav, Navbar, Modal, Tab} from 'react-bootstrap'
+import React, { useState, useEffect } from 'react';
+import {Container, Nav, Navbar, Modal, Tab, Button} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import spotifyLogo from "../assets/images/spotify-logo.svg"
 import gameLogo from "../assets/images/game-logo.png"
@@ -10,6 +10,33 @@ import SignUpForm from './SignUpForm'
 const Navigation = () => {
 
     const [ showModal, setShowModal ] = useState(false);
+    const [token, setToken] = useState("");
+
+    //SPOTIFY API STUFF
+    const CLIENT_ID = "f268301c1b63456b81cf1b534073b905"
+    const REDIRECT_URI = "http://localhost:3000"
+    const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
+    const RESPONSE_TYPE = "token"
+
+    useEffect(() => {
+        const hash = window.location.hash
+        let token = window.localStorage.getItem("token")
+    
+        if (!token && hash) {
+            token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
+    
+            window.location.hash = ""
+            window.localStorage.setItem("token", token)
+        }
+    
+        setToken(token)
+    
+        }, [])
+
+        const logout = () => {
+            setToken("")
+            window.localStorage.removeItem("token")
+            }
 
     return (
         <>
@@ -25,10 +52,17 @@ const Navigation = () => {
                             Leaderboard
                             <img src={login} id="game-logo-header" />
                             </Nav.Link>
+                        {!token ? <p></p> :
                         <Nav.Link as={Link} to="/game" className="gradient-text">
                             Play The Game!
                             <img src={gameLogo} id="game-logo-header" />
                             </Nav.Link>
+                        }
+                            {!token ?
+                    <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>
+                        <Button className="gradient-button">Login to Spotify</Button>
+                        </a>
+                    : <Button onClick={logout} className="gradient-button" id="spotify-button">Logout of Spotify</Button>}
                     </Nav>
                 </Navbar>
             </Container>

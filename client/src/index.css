@@ -49,8 +49,8 @@ html, body{
   box-shadow: 0 0 40px 5px white;
   border-radius: 20px;
   margin-top: 100px;
-  -webkit-animation: kenburns-bottom 5s ease-out both;
-  animation: kenburns-bottom 5s ease-out both;
+  -webkit-animation: kenburns-bottom 15s ease-out both;
+  animation: kenburns-bottom 15s ease-out both;
   
 }
 
@@ -873,8 +873,8 @@ font-size: 30px;
   }
   
   .kenburns-bottom {
-    -webkit-animation: kenburns-bottom 5s ease-out both;
-            animation: kenburns-bottom 5s ease-out both;
+    -webkit-animation: kenburns-bottom 15s ease-out both;
+            animation: kenburns-bottom 15s ease-out both;
   }
 
 @media screen and (max-width: 768px){

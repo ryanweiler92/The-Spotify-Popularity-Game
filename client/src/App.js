@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -29,14 +29,17 @@ const client = new ApolloClient({
 
 
 
+    
+
+
 function App() {
   return (
   <ApolloProvider client={client}>
     <Router>
-      <Navigation />
+      <Navigation/>
 
       <Switch>
-        <Route exact path="/" component={Home} />
+        <Route exact path="/" component={Home}/>
         <Route exact path="/game" component={Game} />
         <Route exact path="/leaderboard" component={Leaderboard} />
       </Switch>
