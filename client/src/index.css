@@ -119,7 +119,6 @@ html, body{
   -webkit-background-clip: text !important;
   border-image-source:  linear-gradient(to left top, #F5EAE3 10%, #BD764C 90%) !important; 
   text-decoration: none;
-  transition: all .4s ease;
   font-size: 20px;
   -moz-background-clip: text !important;
   -moz-text-fill-color: transparent !important;
@@ -132,6 +131,7 @@ display: inline;
 text-shadow: 0px 0px transparent;
 image-rendering: -webkit-optimize-contrast;
 color: transparent;
+background-origin: content-box !important;
 
 
 
@@ -148,6 +148,7 @@ color: transparent;
   -webkit-text-fill-color: transparent !important;
   image-rendering: -webkit-optimize-contrast;
   color: transparent;
+  background-origin: content-box !important;
 }
 
 .gradient-button:hover{
@@ -161,6 +162,7 @@ color: transparent;
 text-shadow: 0px 0px transparent;
 image-rendering: -webkit-optimize-contrast;
 color: transparent;
+background-origin: content-box !important;
 }
 
 .gradient-text {
