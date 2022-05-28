@@ -132,6 +132,7 @@ text-shadow: 0px 0px transparent;
 image-rendering: -webkit-optimize-contrast;
 color: transparent;
 background-origin: content-box !important;
+-webkit-mask-image: linear-gradient(180deg, #8dc9fb 0, #fff 100%);
 
 
 
@@ -151,7 +152,7 @@ background-origin: content-box !important;
   background-origin: content-box !important;
 }
 
-.gradient-button:hover{
+/* .gradient-button:hover{
   font-size: 25px;
   -webkit-box-decoration-break: clone !important;
   box-decoration-break: clone !important;
@@ -163,7 +164,7 @@ text-shadow: 0px 0px transparent;
 image-rendering: -webkit-optimize-contrast;
 color: transparent;
 background-origin: content-box !important;
-}
+} */
 
 .gradient-text {
   background: -webkit-linear-gradient(#F5EAE3, #BD764C) !important;
