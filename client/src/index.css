@@ -127,7 +127,12 @@ html, body{
   -ms-text-fill-color: transparent !important;
   background-clip: text;
 -webkit-box-decoration-break: clone !important;
-display: inline;
+display: list-item;
+text-shadow: 0px 0px transparent;
+}
+
+.testing123{
+  display: list-item;
 }
 
 .gradient-button:hover{
