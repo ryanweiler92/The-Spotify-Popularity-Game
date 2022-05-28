@@ -121,9 +121,9 @@ html, body{
   text-decoration: none;
   transition: all .4s ease;
   font-size: 20px;
- -webkit-appearance: none; 
- -moz-appearance: none;
-appearance: none;
+ -webkit-appearance: none !important; 
+ -moz-appearance: none !important;
+appearance: none !important;
 }
 
 .gradient-button:hover{
@@ -134,9 +134,9 @@ appearance: none;
   background: -webkit-linear-gradient(#F5EAE3, #BD764C) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-appearance: none; 
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+appearance: none !important; 
 }
 
 .white-text {
