@@ -124,6 +124,7 @@ html, body{
  -webkit-appearance: none !important; 
  -moz-appearance: none !important;
 appearance: none !important;
+-webkit-box-decoration-break: clone !important;
 }
 
 .gradient-button:hover{
@@ -137,6 +138,7 @@ appearance: none !important;
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
 appearance: none !important; 
+-webkit-box-decoration-break: clone !important;
 }
 
 .white-text {
@@ -294,6 +296,7 @@ iframe{
   font-size: 20px;
   border: 1px solid var(--gradient) !important;
   font-weight: bold;
+  -webkit-box-decoration-break: clone !important;
 }
 
 .my-next-btn{
@@ -306,6 +309,7 @@ iframe{
   transition: all .4s ease;
   border-image-slice: 1 !important;
   border-image-source:  var(--gradient) !important;
+  -webkit-box-decoration-break: clone !important;
 }
 
 .playlist-selector-img{
@@ -332,6 +336,7 @@ iframe{
   font-size: 20px;
   border: 1px solid var(--gradient) !important;
   font-weight: bold;
+  -webkit-box-decoration-break: clone !important;
 }
 
 .playlist-selector-items:hover{

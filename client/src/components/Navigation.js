@@ -8,13 +8,19 @@ import LoginForm from './LoginForm'
 import SignUpForm from './SignUpForm'
 
 const Navigation = () => {
+    
+    window.onload = function() {
+        if(/iP(hone|ad)/.test(window.navigator.userAgent)) {
+            document.body.addEventListener('touchstart', function() {}, false);
+        }
+      }
 
     const [ showModal, setShowModal ] = useState(false);
     const [token, setToken] = useState("");
 
     //SPOTIFY API STUFF
     const CLIENT_ID = "f268301c1b63456b81cf1b534073b905"
-    const REDIRECT_URI = "http://localhost:3000"
+    const REDIRECT_URI = "https://spotify-popularity-game.herokuapp.com/"
     const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
     const RESPONSE_TYPE = "token"
 
