@@ -14,7 +14,7 @@ const Navigation = () => {
 
     //SPOTIFY API STUFF
     const CLIENT_ID = "f268301c1b63456b81cf1b534073b905"
-    const REDIRECT_URI = "https://spotify-popularity-game.herokuapp.com/"
+    const REDIRECT_URI = "http://localhost:3000"
     const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
     const RESPONSE_TYPE = "token"
 
