@@ -279,10 +279,6 @@ const Game = () => {
             setOtherStyle(myOtherStyle)
         };
 
-        const [postScoreText, setPostScoreText] = useState("Post Score")
-        
-
-
         // const startGameBtn = document.querySelector("start-game-btn")
         const myStyle = {
             display: 'none'
@@ -546,15 +542,16 @@ const Game = () => {
                             Play Again?
                         </Button>
                         </Col>
-                        <Col className="d-flex align-items-center">
-                        <Button 
-                        variant="primary"
+                        <Col className="d-flex align-items-center justify-content-center">
+                        <button 
+                        
                         className="selection-btns"
-                        style={useStyle}
+                        
                         onClick={addScore}
                         id="post-score">
-                            Post Score
-                        </Button>
+                           <span className="my-text"> Post Score </span>
+                           <i className="ri-check-line my-icon"></i>
+                        </button>
                         </Col>
                         <Col className="d-flex align-items-center">
                         <Nav.Link                         

@@ -20,6 +20,7 @@ query scores{
           username
           userID
           _id
+          createdAt
     }
   }
 `

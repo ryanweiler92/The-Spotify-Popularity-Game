@@ -612,6 +612,7 @@ font-size: 30px;
   th{
     text-align: center;
     font-size: 26px;
+    padding: 2px !important;
   }
 
   td{
@@ -628,6 +629,46 @@ font-size: 30px;
 
   .selection-btns{
     font-size: 20px;
+    width: 160px;
+    height: 100px;
+  }
+
+  #post-score{
+    position: relative;
+    cursor: pointer;
+    border-radius: 4px;
+    border-radius: .5s;
+    border: none;
+    transition: width .5s,
+    border-radius .5s
+  }
+
+  #post-score *{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity .25s;
+  }
+
+  .my-icon{
+    opacity: 0;
+  }
+
+  #post-score:focus{
+    width: 100px;
+    background-color: #44c08a;
+    border-radius: 50%;
+  }
+
+  #post-score:focus .my-text{
+    opacity: 0;
+  }
+
+  #post-score:focus .my-icon{
+    opacity: 1;
+    transition-delay: .5s;
+    font-size: 50px;
   }
 
   .pushable {
