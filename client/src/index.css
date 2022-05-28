@@ -127,21 +127,28 @@ html, body{
   -ms-text-fill-color: transparent !important;
   background-clip: text;
 -webkit-box-decoration-break: clone !important;
-display: list-item;
+display: inline;
 text-shadow: 0px 0px transparent;
+
+
+
 }
 
 .testing123{
   
-  display: list-item;
+  display: inline;
+  -webkit-background-clip: text !important;
   -webkit-box-decoration-break: clone !important;
   text-shadow: 0px 0px transparent;
+  -webkit-text-fill-color: transparent !important;
 }
 
 .gradient-button:hover{
   font-size: 25px;
   -webkit-box-decoration-break: clone !important;
-  display: list-item;
+  -webkit-text-fill-color: transparent !important;
+  -webkit-background-clip: text !important;
+  display: inline;
 text-shadow: 0px 0px transparent;
 }
 
