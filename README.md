@@ -2,8 +2,8 @@
 ![shield](https://img.shields.io/badge/license-No%20License-green)
 
 ## Links
-* Repository Link: [The-Spotify-Popularity-Game](https://github.com/ryanweiler92/The-Spotify-Popularity-Game)
-* Application Link: [Crown-Gaming](https://spotify-popularity-game.herokuapp.com/)
+* Repository Link: [GitHub](https://github.com/ryanweiler92/The-Spotify-Popularity-Game)
+* Application Link: [The Spotify Popularity Game](https://spotify-popularity-game.herokuapp.com/)
 * For any additional questions please reach out to ryanweiler92@gmail.com
 
 ## Description
