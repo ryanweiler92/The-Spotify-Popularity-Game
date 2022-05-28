@@ -127,6 +127,7 @@ html, body{
   -ms-text-fill-color: transparent !important;
   background-clip: text;
 -webkit-box-decoration-break: clone !important;
+display: inline;
 }
 
 .gradient-button:hover{
