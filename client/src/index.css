@@ -132,12 +132,17 @@ text-shadow: 0px 0px transparent;
 }
 
 .testing123{
+  
   display: list-item;
+  -webkit-box-decoration-break: clone !important;
+text-shadow: 0px 0px transparent;
 }
 
 .gradient-button:hover{
   font-size: 25px;
   -webkit-box-decoration-break: clone !important;
+  display: list-item;
+text-shadow: 0px 0px transparent;
 }
 
 .gradient-text {
